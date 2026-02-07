@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
-const POPUP_DELAY = 6000; // 800ms delay
+const POPUP_DELAY = 1000; // 1000ms delay
 
 const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);

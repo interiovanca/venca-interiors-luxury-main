@@ -116,7 +116,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-champagne/80 tracking-[0.4em] text-sm md:text-base mb-6 font-body uppercase"
           >
-            Luxury Interior Design
+            {/* Luxury Interior Design */}
           </motion.p>
           
           <motion.h1

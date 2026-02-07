@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Sofa, 
-  LayoutDashboard, 
-  ChefHat, 
-  Shirt, 
-  Building2, 
-  Box, 
-  Wrench, 
+import {
+  ArrowRight,
+  Sofa,
+  Armchair,
+  BedDouble,
+  Table,
+  Boxes,
+  Hammer,
   Sparkles,
   MessageCircle,
   Palette,
   Layers,
-  Hammer,
-  CheckCircle
+  CheckCircle,
+  Wrench
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -22,59 +21,59 @@ import Footer from '@/components/Footer';
 const services = [
   {
     icon: Sofa,
-    title: 'Custom Furniture Design',
-    description: 'Bespoke furniture pieces crafted to your exact specifications and style preferences.',
+    title: 'Bespoke Furniture Design',
+    description: 'Custom-designed furniture crafted to reflect your taste, space, and lifestyle.',
   },
   {
-    icon: LayoutDashboard,
-    title: 'Interior Space Planning',
-    description: 'Strategic layout optimization to maximize functionality and aesthetic flow.',
+    icon: Armchair,
+    title: 'Luxury Seating Solutions',
+    description: 'Sofas, lounge chairs, and seating pieces that balance comfort with elegance.',
   },
   {
-    icon: ChefHat,
-    title: 'Modular Kitchen Solutions',
-    description: 'Contemporary kitchen designs combining efficiency with elegant aesthetics.',
+    icon: BedDouble,
+    title: 'Beds & Bedroom Furniture',
+    description: 'Statement beds and bedroom furniture designed for refined living.',
   },
   {
-    icon: Shirt,
-    title: 'Wardrobe & Storage Solutions',
-    description: 'Intelligent storage systems designed for organization and accessibility.',
+    icon: Table,
+    title: 'Dining & Tables',
+    description: 'Dining tables, coffee tables, and consoles crafted with timeless appeal.',
   },
   {
-    icon: Building2,
-    title: 'Office & Commercial Interiors',
-    description: 'Professional spaces that inspire productivity and reflect brand identity.',
+    icon: Boxes,
+    title: 'Storage & Wardrobes',
+    description: 'Thoughtfully designed storage furniture combining beauty and utility.',
   },
   {
-    icon: Box,
-    title: '3D Visualization & Concept Design',
-    description: 'Photorealistic renderings to envision your space before execution.',
+    icon: Palette,
+    title: 'Material & Finish Customization',
+    description: 'Wide selection of premium woods, metals, fabrics, and finishes.',
   },
   {
-    icon: Wrench,
-    title: 'Turnkey Interior Execution',
-    description: 'End-to-end project management from concept to completion.',
+    icon: Hammer,
+    title: 'Furniture Manufacturing',
+    description: 'Precision-crafted furniture made by skilled master craftsmen.',
   },
   {
     icon: Sparkles,
-    title: 'Furniture Restoration & Upgrade',
-    description: 'Breathing new life into cherished pieces with expert restoration.',
+    title: 'Furniture Restoration',
+    description: 'Reviving and upgrading existing furniture with expert detailing.',
   },
 ];
 
 const processSteps = [
-  { icon: MessageCircle, title: 'Consultation', description: 'Understanding your vision' },
-  { icon: Palette, title: 'Design', description: 'Creating concepts' },
-  { icon: Layers, title: 'Material Selection', description: 'Choosing finishes' },
-  { icon: Hammer, title: 'Production', description: 'Crafting excellence' },
-  { icon: CheckCircle, title: 'Installation', description: 'Perfect delivery' },
+  { icon: MessageCircle, title: 'Consultation', description: 'Understanding your needs' },
+  { icon: Palette, title: 'Design & Customization', description: 'Defining form & finish' },
+  { icon: Layers, title: 'Material Selection', description: 'Choosing premium materials' },
+  { icon: Wrench, title: 'Crafting', description: 'Precision manufacturing' },
+  { icon: CheckCircle, title: 'Delivery', description: 'Perfect final execution' },
 ];
 
 const expertisePoints = [
-  'Premium materials sourced globally',
-  'Skilled master craftsmen',
-  'Personalized design approach',
-  'End-to-end project execution',
+  'Premium wood, metal & upholstery materials',
+  'Skilled furniture artisans',
+  'Fully customized designs',
+  'Attention to detail & finishing',
 ];
 
 const ServicesPage = () => {
@@ -96,13 +95,13 @@ const ServicesPage = () => {
       <section className="relative h-[60vh] md:h-[75vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920"
-            alt="Luxury Interior Services"
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920"
+            alt="Luxury Furniture"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
         </div>
-        
+
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -110,26 +109,27 @@ const ServicesPage = () => {
             transition={{ duration: 0.6 }}
             className="text-primary tracking-[0.3em] text-xs md:text-sm font-body mb-4"
           >
-            WHAT WE OFFER
+            OUR CRAFT
           </motion.p>
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-light mb-6"
           >
-            Our Services
+            Furniture Services
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-white/70 font-body text-base md:text-lg max-w-xl"
           >
-            Thoughtfully crafted solutions for refined living
+            Crafted furniture designed to elevate everyday living
           </motion.p>
-          
-          {/* Decorative Line */}
+
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -150,7 +150,7 @@ const ServicesPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative p-8 bg-card rounded-lg border border-border hover:border-primary/30 transition-all duration-500"
+                className="group p-8 bg-card rounded-lg border border-border hover:border-primary/30 transition-all duration-500"
               >
                 <div className="mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
                   <service.icon className="w-8 h-8" strokeWidth={1.5} />
@@ -170,11 +170,10 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* Split Feature Section */}
+      {/* Feature Section */}
       <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
-            {/* Image */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -183,14 +182,13 @@ const ServicesPage = () => {
               className="relative aspect-[4/3] rounded-lg overflow-hidden"
             >
               <img
-                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200"
-                alt="Bespoke Solutions"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200"
+                alt="Custom Furniture"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </motion.div>
 
-            {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -199,14 +197,15 @@ const ServicesPage = () => {
               className="space-y-8"
             >
               <div>
-                <p className="text-primary tracking-[0.2em] text-xs font-body mb-4">OUR EXPERTISE</p>
+                <p className="text-primary tracking-[0.2em] text-xs font-body mb-4">
+                  OUR EXPERTISE
+                </p>
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-                  Bespoke Solutions Tailored To You
+                  Furniture Crafted With Purpose
                 </h2>
                 <p className="text-muted-foreground font-body leading-relaxed">
-                  Every space we design is a unique reflection of your lifestyle and aspirations. 
-                  Our team of expert designers and craftsmen work closely with you to bring your 
-                  vision to life with uncompromising quality and attention to detail.
+                  Every piece we create is a balance of form, function, and fine craftsmanship.
+                  From concept to completion, our furniture is designed to last and inspire.
                 </p>
               </div>
 
@@ -217,7 +216,7 @@ const ServicesPage = () => {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-center gap-4"
                   >
                     <span className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -226,8 +225,8 @@ const ServicesPage = () => {
                 ))}
               </ul>
 
-              <button className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors duration-300 rounded-sm">
-                Explore Our Process
+              <button className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors rounded-sm">
+                Explore Our Craft
                 <ArrowRight className="w-4 h-4" />
               </button>
             </motion.div>
@@ -235,7 +234,7 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* Process Flow */}
+      {/* Process */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
@@ -244,57 +243,36 @@ const ServicesPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-primary tracking-[0.2em] text-xs font-body mb-4">HOW WE WORK</p>
-            <h2 className="font-display text-3xl md:text-4xl text-foreground">Our Process</h2>
-          </motion.div>
-
-          <div className="relative">
-            {/* Connection Line - Desktop */}
-            <div className="hidden md:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative text-center"
-                >
-                  <div className="relative z-10 mx-auto w-24 h-24 bg-card border border-border rounded-full flex items-center justify-center mb-6 group-hover:border-primary/50 transition-colors">
-                    <step.icon className="w-8 h-8 text-primary" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-display text-lg text-foreground mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm font-body">{step.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 md:py-32 relative overflow-hidden bg-card">
-        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto"
-          >
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-6">
-              Let's Build Something Exceptional
-            </h2>
-            <p className="text-muted-foreground font-body text-lg mb-10">
-              Tell us about your space and we'll craft a solution just for you.
+            <p className="text-primary tracking-[0.2em] text-xs font-body mb-4">
+              OUR PROCESS
             </p>
-            <button className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors duration-300 rounded-sm">
-              Get a Free Consultation
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground">
+              From Idea to Furniture
+            </h2>
           </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="mx-auto w-24 h-24 bg-card border border-border rounded-full flex items-center justify-center mb-6">
+                  <step.icon className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-display text-lg text-foreground mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-muted-foreground text-sm font-body">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

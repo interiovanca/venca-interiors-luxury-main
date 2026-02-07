@@ -68,8 +68,14 @@ const ProjectsShowcase = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-[#F6F1E3] dark:bg-[#080808]
- transition-colors duration-300 overflow-hidden">
+    <section
+      className="
+        py-20 md:py-32
+        bg-[#F7F2E8] dark:bg-[#080808]
+        transition-colors duration-300
+        overflow-hidden
+      "
+    >
       <div className="container mx-auto px-6">
 
         {/* Header */}
@@ -97,7 +103,6 @@ const ProjectsShowcase = () => {
       {/* Carousel */}
       <div className="relative px-4 md:px-8">
 
-        {/* Desktop */}
         <div className="hidden sm:flex items-center justify-center gap-6">
 
           {/* Left */}
@@ -142,19 +147,21 @@ const ProjectsShowcase = () => {
                   </p>
                 </div>
 
-                {/* Arrows */}
                 <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4">
-                  <button onClick={prevSlide}
-                    className="p-3 rounded-full bg-black/40 text-white">
+                  <button
+                    onClick={prevSlide}
+                    className="p-3 rounded-full bg-black/40 text-white"
+                  >
                     <ChevronLeft />
                   </button>
 
-                  <button onClick={nextSlide}
-                    className="p-3 rounded-full bg-black/40 text-white">
+                  <button
+                    onClick={nextSlide}
+                    className="p-3 rounded-full bg-black/40 text-white"
+                  >
                     <ChevronRight />
                   </button>
                 </div>
-
               </motion.div>
             </AnimatePresence>
           </div>

@@ -3,7 +3,7 @@ import CategoryCard from './CategoryCard';
 import chairsImage from '@/assets/category-chairs.jpg';
 import sofasImage from '@/assets/category-sofas.jpg';
 import lampsImage from '@/assets/category-lamps.jpg';
-import tablesImage from '@/assets/category-tables.jpg';
+import tablesImage from '@/assets/category-tables1.jpg';
 
 const categories = [
   { id: 'chairs', name: 'Chairs', image: chairsImage, description: 'Timeless seating crafted for distinction' },

@@ -10,18 +10,18 @@ interface HeaderProps {
 }
 
 const navItems = [
-  { label: "OUR STORY", path: "/our-story" },
-  { label: "OUR COLLECTIONS", path: "/collection" },
-  { label: "OUR PROJECTS", path: "/projects" },
-  { label: "OUR SERVICES", path: "/services" },
-  { label: "OUR CONTACT", path: "/contact" },
+  { label: "our STORY", path: "/our-story" },
+  { label: "COLLECTIONS", path: "/collection" },
+  { label: "PROJECTS", path: "/projects" },
+  { label: "SERVICES", path: "/services" },
+  { label: "CONTACT", path: "/contact" },
 ];
 
 const mobileNavItems = [
-  { label: "Our Story", path: "/our-story" },
-  { label: "Our Collections", path: "/collection" },
-  { label: "Our Projects", path: "/projects" },
-  { label: "Our Services", path: "/services" },
+  { label: "our Story", path: "/our-story" },
+  { label: "Collections", path: "/collection" },
+  { label: "Projects", path: "/projects" },
+  { label: "Services", path: "/services" },
   { label: "Contact", path: "/contact" },
 ];
 

@@ -176,10 +176,11 @@ const OurStoryPage = () => {
                 Who We Are
               </h2>
               <p className="text-muted-foreground leading-relaxed font-body text-lg mb-6">
-                At Vanca Interio, we believe true luxury lies in the uniqueness of a piece — not just in how it looks, but in how it transforms your space.
+                Born from metal, shaped by vision.
+             Our designs live at the edge of art and function, where control meets instinct. Every curve holds character, every mark tells a story. We don’t hide imperfections we celebrate them, letting steel express its raw beauty. These aren’t just furniture pieces; they are statements made for   spaces that dare to evolve.
               </p>
               <p className="text-muted-foreground leading-relaxed font-body">
-                We craft furniture that tells a story, elevates experiences, and stands the test of time. Our philosophy is rooted in artistry, meticulous craftsmanship, and an unwavering focus on quality.
+                
               </p>
             </motion.div>
 
