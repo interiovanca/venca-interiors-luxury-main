@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# Venca Interiors – Premium Luxury Furniture Website
 
-## Project info
+Venca Interiors is a modern luxury furniture brand website designed to showcase premium collections, elegant spaces, and high-end craftsmanship.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+The website focuses on clean design, smooth animations, and a refined user experience aligned with a luxury brand identity.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌟 Highlights
 
-**Use Lovable**
+- Luxury and modern UI design
+- Fully responsive for all devices
+- Smooth animations and transitions
+- Premium furniture and interior showcases
+- High-quality visuals and brand storytelling
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📂 Project Purpose
+This project is created for showcasing luxury furniture and interior designs with a premium look and feel.
 
-**Use your preferred IDE**
+## 👤 Author
+**Ankit Mishra**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+⭐ If you like this project, give it a star!
 
-Follow these steps:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📄 License
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+© 2026 Venca Interiors. All rights reserved.
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Venca Interiors – Premium Luxury Furniture Website
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Venca Interiors is a modern luxury furniture and interior design website built with a strong focus on elegant design, smooth animations, and a premium user experience.
 
-**Edit a file directly in GitHub**
+This project showcases furniture collections, interior services, and brand storytelling using a clean, responsive, and performance-optimized frontend.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## ✨ Tech Stack
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
+- React + TypeScript
 - Vite
-- TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- Framer Motion
+- Lucide Icons
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 🚀 Features
 
-## Can I connect a custom domain to my Lovable project?
+- Premium luxury UI/UX
+- Fully responsive design
+- Furniture categories (Chairs, Sofas, Tables, Lamps)
+- Product showcase with images and videos
+- Smooth animations and transitions
+- Dark / Light theme toggle
+- Newsletter popup and feedback components
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📂 Project Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+venca-interiors-luxury-main/
+├── public/
+├── src/
+│ ├── assets/
+│ ├── components/
+│ ├── pages/
+│ ├── hooks/
+│ ├── data/
+│ ├── App.tsx
+│ └── main.tsx
+├── package.json
+├── tailwind.config.ts
+├── vite.config.ts
+└── README.md
+
+
