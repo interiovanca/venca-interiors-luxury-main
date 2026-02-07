@@ -20,7 +20,7 @@ The website focuses on clean design, smooth animations, and a refined user exper
 This project is created for showcasing luxury furniture and interior designs with a premium look and feel.
 
 ## 👤 Author
-**Ankit Mishra**
+**Ankit Mishra & shivendra kumar**
 
 ---
 
