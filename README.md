@@ -1,6 +1,6 @@
 # Venca Interiors – Premium Luxury Furniture Website
 
-Venca Interiors is a modern luxury furniture brand website designed to showcase premium collections, elegant spaces, and high-end craftsmanship.
+Vanca Interiors is a modern luxury furniture brand website designed to showcase premium collections, elegant spaces, and high-end craftsmanship.
 
 The website focuses on clean design, smooth animations, and a refined user experience aligned with a luxury brand identity.
 
@@ -29,9 +29,9 @@ This project is created for showcasing luxury furniture and interior designs wit
 
 ## 📄 License
 
-© 2026 Venca Interiors. All rights reserved.
+© 2026 Vanca Interiors. All rights reserved.
 
-# Venca Interiors – Premium Luxury Furniture Website
+# Vanca Interiors – Premium Luxury Furniture Website
 
 Venca Interiors is a modern luxury furniture and interior design website built with a strong focus on elegant design, smooth animations, and a premium user experience.
 
@@ -63,7 +63,7 @@ This project showcases furniture collections, interior services, and brand story
 
 ## 📂 Project Structure
 
-venca-interiors-luxury-main/
+vanca-interiors-luxury-main/
 ├── public/
 ├── src/
 │ ├── assets/
