@@ -1,0 +1,352 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;500;700;900&family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@font-face {
+  font-family: "OrangeAvenue";
+  src: url("/fonts/OrangeAvenueDemoRegular-jP10K.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.logo-text {
+  font-family: "OrangeAvenue", serif;
+  letter-spacing: 0.22em;
+  font-weight: 400;
+}
+
+
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Vanca Interio - Premium Luxury Interior Design System */
+
+@layer base {
+  :root,
+  .dark {
+    /* Core luxury palette - Dark Mode */
+    --background: 0 0% 4%;
+    --foreground: 45 20% 95%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 45 20% 95%;
+
+    /* Champagne gold primary */
+    --primary: 40 45% 65%;
+    --primary-foreground: 0 0% 4%;
+
+    /* Rich charcoal secondary */
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 45 20% 90%;
+
+    /* Muted tones */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+
+    /* Accent - warm champagne */
+    --accent: 38 35% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 40 45% 65%;
+
+    --radius: 0.25rem;
+
+    /* Custom luxury variables */
+    --champagne: 40 45% 65%;
+    --champagne-light: 42 50% 75%;
+    --champagne-dark: 38 40% 45%;
+    --cream: 45 30% 92%;
+    --charcoal: 0 0% 8%;
+    --charcoal-deep: 0 0% 4%;
+    --charcoal-light: 0 0% 15%;
+
+    /* Glassmorphism */
+    --glass-bg: 0 0% 10% / 0.7;
+    --glass-border: 0 0% 100% / 0.1;
+    --glass-blur: 20px;
+
+    /* Typography */
+    --font-brand: 'Cinzel Decorative', serif;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 60px -15px hsl(40 45% 65% / 0.3);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 45 20% 90%;
+    --sidebar-primary: 40 45% 65%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 45 20% 90%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 40 45% 65%;
+  }
+
+  .light {
+    /* Light Mode - Premium Off-white #F6EED8 */
+    --background: 43 55% 90%;
+    --foreground: 30 25% 15%;
+
+    --card: 43 50% 92%;
+    --card-foreground: 30 25% 12%;
+
+    --popover: 43 55% 91%;
+    --popover-foreground: 30 25% 12%;
+
+    /* Champagne gold primary - darker for contrast */
+    --primary: 35 50% 35%;
+    --primary-foreground: 43 55% 92%;
+
+    /* Soft secondary */
+    --secondary: 43 40% 88%;
+    --secondary-foreground: 30 25% 18%;
+
+    /* Muted tones */
+    --muted: 43 35% 85%;
+    --muted-foreground: 30 15% 40%;
+
+    /* Accent - rich warm champagne */
+    --accent: 35 45% 38%;
+    --accent-foreground: 43 55% 92%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 35 20% 82%;
+    --input: 43 40% 88%;
+    --ring: 35 50% 35%;
+
+    /* Custom luxury variables - Light mode */
+    --champagne: 35 50% 35%;
+    --champagne-light: 38 55% 45%;
+    --champagne-dark: 32 45% 25%;
+    --cream: 30 25% 15%;
+    --charcoal: 43 50% 92%;
+    --charcoal-deep: 43 55% 90%;
+    --charcoal-light: 43 35% 85%;
+
+    /* Image container background - off-white for clean images */
+    --image-bg: 43 55% 90%;
+
+    /* Glassmorphism - Light */
+    --glass-bg: 43 50% 92% / 0.95;
+    --glass-border: 30 15% 50% / 0.1;
+    --glass-blur: 20px;
+
+    /* Shadows - Light */
+    --shadow-luxury: 0 25px 50px -12px hsl(30 20% 20% / 0.06);
+    --shadow-card: 0 10px 40px -10px hsl(30 20% 20% / 0.04);
+    --shadow-glow: 0 0 60px -15px hsl(35 50% 35% / 0.1);
+
+    /* Sidebar - Light */
+    --sidebar-background: 43 50% 92%;
+    --sidebar-foreground: 30 25% 18%;
+    --sidebar-primary: 35 50% 35%;
+    --sidebar-primary-foreground: 43 55% 92%;
+    --sidebar-accent: 43 40% 88%;
+    --sidebar-accent-foreground: 30 25% 18%;
+    --sidebar-border: 35 20% 82%;
+    --sidebar-ring: 35 50% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .font-brand {
+    font-family: var(--font-brand);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  .text-champagne {
+    color: hsl(var(--champagne));
+  }
+
+  .bg-champagne {
+    background-color: hsl(var(--champagne));
+  }
+
+  .text-cream {
+    color: hsl(var(--cream));
+  }
+
+  .shadow-luxury {
+    box-shadow: var(--shadow-luxury);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .gradient-luxury {
+    background: linear-gradient(135deg, hsl(var(--charcoal)) 0%, hsl(var(--charcoal-deep)) 100%);
+  }
+
+  .gradient-champagne {
+    background: linear-gradient(135deg, hsl(var(--champagne-dark)) 0%, hsl(var(--champagne)) 50%, hsl(var(--champagne-light)) 100%);
+  }
+
+  .border-luxury {
+    border-color: hsl(var(--glass-border));
+  }
+
+  .hover-lift {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-luxury);
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--champagne-light)) 0%, hsl(var(--champagne)) 50%, hsl(var(--champagne-dark)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+/* Micro Premium Enhancements */
+@layer components {
+  /* Subtle hover animations on buttons */
+  .btn-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .btn-hover:hover {
+    @apply transform -translate-y-0.5;
+    box-shadow: 0 8px 25px -5px hsl(var(--primary) / 0.25);
+  }
+
+  /* Soft box shadows on cards */
+  .card-premium {
+    @apply transition-all duration-300 ease-out;
+    box-shadow: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
+  }
+
+  .card-premium:hover {
+    box-shadow: 0 12px 35px -8px hsl(0 0% 0% / 0.12);
+  }
+
+  /* Smooth easing for modals */
+  .modal-ease {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+/* ===================================================== */
+/* TRANSPARENT HEADER – NO BEHAVIOUR CHANGE (SAFE) */
+/* ===================================================== */
+
+@layer components {
+
+  /* Header transparent */
+  header,
+  .site-header,
+  .main-header {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Agar header me glass class lagi ho */
+  header.glass,
+  .glass.header-transparent {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Sticky / Scroll state – behaviour same, sirf look transparent */
+  header.sticky,
+  header.scrolled,
+  header.is-sticky,
+  .sticky.header-transparent,
+  .scrolled.header-transparent {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+}
+/* ===================================================== */
+/* HEADER HOVER – DARK GREY EFFECT */
+/* ===================================================== */
+
+@layer components {
+
+  header:hover,
+  .site-header:hover,
+  .main-header:hover {
+    background: hsl(0 0% 10% / 0.6) !important; /* greyish dark */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+}
