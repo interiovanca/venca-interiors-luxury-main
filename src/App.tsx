@@ -20,6 +20,10 @@ import LoginPage from "./pages/LoginPage";
 import OurStoryPage from "./pages/OurStoryPage";
 import ServicesPage from "./pages/ServicesPage";
 import NotFound from "./pages/NotFound";
+import CollectionsPage from "@/pages/collection";
+
+<Route path="/collections" element={<CollectionsPage />} />
+
 
 const queryClient = new QueryClient();
 

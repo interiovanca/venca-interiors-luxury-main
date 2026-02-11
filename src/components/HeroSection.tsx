@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import heroInterior from '@/assets/1.png';
 import heroVideo1 from '@/assets/videos/hero-video-1.mp4';
-import heroInterior from '@/assets/hero-interior.jpg';
 import categorySofas from '@/assets/category-sofas.jpg';
 import categoryChairs from '@/assets/category-chairs.jpg';
 import categoryTables from '@/assets/category-tables.jpg';

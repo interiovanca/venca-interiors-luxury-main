@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const navItems = [
-  { label: "our STORY", path: "/our-story" },
+  { label: "OUR STORY", path: "/our-story" },
   { label: "COLLECTIONS", path: "/collection" },
   { label: "PROJECTS", path: "/projects" },
   { label: "SERVICES", path: "/services" },
@@ -18,7 +18,7 @@ const navItems = [
 ];
 
 const mobileNavItems = [
-  { label: "our Story", path: "/our-story" },
+  { label: "OUR Story", path: "/our-story" },
   { label: "Collections", path: "/collection" },
   { label: "Projects", path: "/projects" },
   { label: "Services", path: "/services" },
