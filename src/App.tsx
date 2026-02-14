@@ -22,6 +22,7 @@ import ServicesPage from "./pages/ServicesPage";
 import NotFound from "./pages/NotFound";
 import CollectionsPage from "@/pages/collection";
 
+
 <Route path="/collections" element={<CollectionsPage />} />
 
 
