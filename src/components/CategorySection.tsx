@@ -30,7 +30,7 @@ const CategorySection = () => {
             Collections
           </span>
           <h2 className="text-5xl md:text-6xl font-display mt-4">
-            Curated Excellence Ankit Mishra check 
+            Curated Excellence
           </h2>
         </motion.div>
 

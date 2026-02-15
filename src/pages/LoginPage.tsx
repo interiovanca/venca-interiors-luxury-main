@@ -61,7 +61,7 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
         className="absolute top-8 left-8 z-20 flex items-center gap-2 text-white/40 hover:text-white transition-all group font-medium"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        <span className="text-[10px] uppercase tracking-[0.2em]">Exit to Site</span>
+        <span className="text-[10px] uppercase tracking-[0.2em]">back to home</span>
       </Link>
 
       {/* LIQUID GLASS CARD */}
@@ -85,7 +85,7 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
           </div>
 
           <div className="text-center mb-10">
-            <h1 className="text-4xl font-extralight text-white tracking-tighter mb-4 italic font-serif">Vanca <span className="not-italic font-sans font-bold opacity-20">Systems</span></h1>
+            <h1 className="text-4xl font-extralight text-white tracking-tighter mb-4 italic font-serif">Vanca <span className="not-italic font-sans font-bold opacity-20">Interio</span></h1>
             
             {/* ROLE SELECTOR */}
             <div className="inline-flex p-1 bg-white/5 rounded-full border border-white/10">
