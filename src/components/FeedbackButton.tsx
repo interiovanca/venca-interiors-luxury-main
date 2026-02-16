@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { MessageSquare, X } from 'lucide-react';
+import { MessageSquare, X, Loader2 } from 'lucide-react';
 
 type Rating = 1 | 2 | 3 | 4 | 5 | null;
 
@@ -18,35 +18,58 @@ const FeedbackButton = () => {
   const [rating, setRating] = useState<Rating>(null);
   const [feedback, setFeedback] = useState('');
   const [isHidden, setIsHidden] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // Fix for Hydration
+  const [isSubmitting, setIsSubmitting] = useState(false); // API Loading state
 
-  // Check sessionStorage on mount
   useEffect(() => {
+    setIsMounted(true);
     const feedbackSubmitted = sessionStorage.getItem('feedbackSubmitted');
     if (feedbackSubmitted === 'true') {
       setIsHidden(true);
     }
   }, []);
 
-  const handleRatingSelect = (selectedRating: Rating) => {
-    setRating(selectedRating);
-  };
-
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && rating) {
       setStep(2);
     } else if (step === 2) {
-      setStep(3);
-      // Mark feedback as submitted in sessionStorage
-      sessionStorage.setItem('feedbackSubmitted', 'true');
-      // Hide after showing thank you
-      setTimeout(() => {
-        setIsOpen(false);
-        setIsHidden(true);
-      }, 2000);
+      setIsSubmitting(true);
+      
+      try {
+        // --- API INTEGRATION MODULE ---
+        // Replace the URL with your actual AWS API Gateway endpoint
+        const response = await fetch('YOUR_AWS_API_ENDPOINT_HERE', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            rating,
+            feedback,
+            pageUrl: window.location.href,
+            timestamp: new Date().toISOString()
+          }),
+        });
+
+        if (!response.ok) throw new Error('Failed to submit');
+        // ------------------------------
+
+        setStep(3);
+        sessionStorage.setItem('feedbackSubmitted', 'true');
+        
+        setTimeout(() => {
+          setIsOpen(false);
+          setIsHidden(true);
+        }, 2000);
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("Sorry, we couldn't send your feedback. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   const handleClose = () => {
+    if (isSubmitting) return; // Prevent closing while sending
     setIsOpen(false);
     setTimeout(() => {
       setStep(1);
@@ -55,143 +78,105 @@ const FeedbackButton = () => {
     }, 300);
   };
 
-  // Don't render if feedback was submitted this session
-  if (isHidden) {
-    return null;
-  }
+  if (!isMounted || isHidden) return null;
 
   return (
     <>
+      {/* Styles to ensure visibility on AWS server */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
+        .shadow-luxury { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3); }
+      `}} />
+
       {/* Vertical Feedback Button */}
       <motion.button
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 20 }}
-        transition={{ duration: 0.5, delay: 1 }}
         onClick={() => setIsOpen(true)}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-primary hover:bg-primary/90 text-primary-foreground px-2 py-4 rounded-l-lg shadow-luxury transition-all duration-300 group"
-        aria-label="Open feedback"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-[9999] bg-black text-white px-2 py-4 rounded-l-lg shadow-luxury transition-all hover:bg-zinc-800"
       >
         <div className="flex flex-col items-center gap-2">
           <MessageSquare className="w-4 h-4" />
-          <span className="writing-vertical text-xs font-medium tracking-wider">
+          <span className="writing-vertical text-[10px] font-bold uppercase tracking-widest">
             Feedback
           </span>
         </div>
       </motion.button>
 
-      {/* Feedback Panel */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-background/60 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[10000]"
             />
 
-            {/* Panel */}
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed inset-x-4 top-1/2 -translate-y-1/2 mx-auto z-50 w-auto max-w-md max-h-[85vh] overflow-y-auto bg-card border border-border rounded-lg shadow-luxury p-4 sm:p-6 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2"
+              className="fixed inset-x-4 top-1/2 -translate-y-1/2 mx-auto z-[10001] w-full max-w-md bg-white border border-zinc-200 rounded-xl shadow-2xl p-6"
             >
-              {/* Close button */}
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Close feedback"
-              >
+              <button onClick={handleClose} className="absolute top-4 right-4 text-zinc-400 hover:text-black">
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Step 1: Rating */}
               {step === 1 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center"
-                >
-                  <p className="text-sm text-muted-foreground mb-2">1/3</p>
-                  <h3 className="text-lg font-display text-foreground mb-6">
-                    How would you rate your experience?
-                  </h3>
-                  
-                  <div className="flex justify-center gap-3 mb-6">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-zinc-900 mb-6">How was your experience?</h3>
+                  <div className="flex justify-center gap-2 mb-8">
                     {emojis.map(({ rating: r, emoji, label }) => (
                       <button
                         key={r}
-                        onClick={() => handleRatingSelect(r)}
-                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200 ${
-                          rating === r
-                            ? 'bg-primary/20 scale-110'
-                            : 'hover:bg-muted'
+                        onClick={() => setRating(r)}
+                        className={`flex flex-col items-center gap-2 p-3 rounded-xl transition-all ${
+                          rating === r ? 'bg-zinc-100 border-2 border-black scale-105' : 'hover:bg-zinc-50 border-2 border-transparent'
                         }`}
                       >
                         <span className="text-3xl">{emoji}</span>
-                        <span className="text-xs text-muted-foreground">{label}</span>
+                        <span className="text-[10px] font-bold text-zinc-500">{label}</span>
                       </button>
                     ))}
                   </div>
-
                   <button
                     onClick={handleNext}
                     disabled={!rating}
-                    className="px-8 py-2 bg-muted hover:bg-muted/80 text-foreground text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-3 bg-black text-white font-bold rounded-lg disabled:opacity-20"
                   >
-                    Next
+                    Next Step
                   </button>
-                </motion.div>
+                </div>
               )}
 
-              {/* Step 2: Written Feedback */}
               {step === 2 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center"
-                >
-                  <p className="text-sm text-muted-foreground mb-2">2/3</p>
-                  <h3 className="text-lg font-display text-foreground mb-4">
-                    Tell us more (optional)
-                  </h3>
-                  
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-zinc-900 mb-4">Any specific feedback?</h3>
                   <textarea
+                    autoFocus
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
-                    placeholder="What could we improve?"
-                    className="w-full h-24 p-3 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-1 focus:ring-ring mb-4"
+                    placeholder="Tell us more..."
+                    className="w-full h-32 p-4 bg-zinc-50 border border-zinc-200 rounded-lg focus:ring-2 focus:ring-black outline-none mb-4"
                   />
-
                   <button
                     onClick={handleNext}
-                    className="px-8 py-2 bg-muted hover:bg-muted/80 text-foreground text-sm rounded transition-colors"
+                    disabled={isSubmitting}
+                    className="w-full py-3 bg-black text-white font-bold rounded-lg flex items-center justify-center gap-2"
                   >
-                    Submit
+                    {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Send Feedback'}
                   </button>
-                </motion.div>
+                </div>
               )}
 
-              {/* Step 3: Thank You */}
               {step === 3 && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-4"
-                >
-                  <p className="text-4xl mb-4">🙏</p>
-                  <h3 className="text-xl font-display text-foreground mb-2">
-                    Thank you!
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Your feedback helps us improve.
-                  </p>
-                </motion.div>
+                <div className="text-center py-8">
+                  <div className="text-5xl mb-4">🙏</div>
+                  <h3 className="text-2xl font-bold text-zinc-900 mb-2">Thank You!</h3>
+                  <p className="text-zinc-500">Your response has been saved to our server.</p>
+                </div>
               )}
             </motion.div>
           </>

@@ -9,6 +9,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/hooks/useTheme";
 import ScrollToTop from "@/components/ScrollToTop";
+import FeedbackButton from "./components/FeedbackButton";
 
 // Pages
 import Index from "./pages/Index";
@@ -24,7 +25,6 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Page Transition Wrapper
 const PageTransition = ({ children }: { children: React.ReactNode }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -39,21 +39,25 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
 const AnimatedRoutes = () => {
   const location = useLocation();
   
-  // ✅ AUTH LOGIC: LocalStorage se check karega ki user logged in hai ya nahi
+  // ✅ INITIAL CHECK: Check if strictly "true"
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem("isAdminAuth") === "true";
   });
 
-  // Jab bhi auth status change ho, usey save karein
+  // ✅ IMPROVED AUTH LOGIC: Handle login and logout properly
   const handleSetAuth = (status: boolean) => {
     setIsAuthenticated(status);
-    localStorage.setItem("isAdminAuth", status.toString());
+    if (status) {
+      localStorage.setItem("isAdminAuth", "true");
+    } else {
+      // Logout hone par storage se delete karein
+      localStorage.removeItem("isAdminAuth");
+    }
   };
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* PUBLIC ROUTES */}
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
         <Route path="/collection" element={<PageTransition><CollectionPage /></PageTransition>} />
         <Route path="/projects" element={<PageTransition><ProductPages /></PageTransition>} />
@@ -61,7 +65,7 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
         <Route path="/our-story" element={<PageTransition><OurStoryPage /></PageTransition>} />
 
-        {/* ✅ LOGIN ROUTE: Agar pehle se login hai toh seedha Admin par bhej dega */}
+        {/* ✅ LOGIN LOGIC: Direct redirect only if authenticated */}
         <Route
           path="/login"
           element={
@@ -75,7 +79,7 @@ const AnimatedRoutes = () => {
           }
         />
 
-        {/* ✅ PROTECTED ADMIN ROUTE: Bina login ke koi yahan nahi aa sakta */}
+        {/* ✅ PROTECTED ADMIN ROUTE */}
         <Route
           path="/admin"
           element={
@@ -103,6 +107,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <FeedbackButton /> 
           <AnimatedRoutes />
         </BrowserRouter>
       </TooltipProvider>

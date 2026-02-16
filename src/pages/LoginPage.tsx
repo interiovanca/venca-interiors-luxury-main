@@ -4,17 +4,16 @@ import { useState } from 'react';
 import { ArrowLeft, Eye, EyeOff, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { toast } from "sonner"; // ✅ Notification ke liye
+import { toast } from "sonner";
 import loginart from '@/assets/login1.png';
 
-// ✅ Type definition for TS
 interface LoginPageProps {
   setAuth: (status: boolean) => void;
 }
 
 const LoginPage = ({ setAuth }: LoginPageProps) => {
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(true); // Default Admin par rakha hai
+  const [isAdmin, setIsAdmin] = useState(true); // Role toggle state
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,17 +25,28 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    // ✅ Validation Logic with case-insensitivity
     setTimeout(() => {
-      const isValidEmail = email.toLowerCase() === "vancainterio@gmail.com";
-      const isValidPassword = password === "ankitmishra_" || password === "Ankitmishra";
+      if (isAdmin) {
+        // ✅ ADMIN LOGIN LOGIC
+        const isValidEmail = email.toLowerCase() === "vancainterio@gmail.com";
+        const isValidPassword = password === "ankitmishra_" || password === "Ankitmishra";
 
-      if (isValidEmail && isValidPassword) {
-        setAuth(true);
-        toast.success("Welcome back, Ankit! Redirecting to Workspace...");
-        navigate('/admin');
+        if (isValidEmail && isValidPassword) {
+          setAuth(true); // Admin Auth True
+          toast.success("Welcome back, Ankit! Redirecting to Workspace...");
+          navigate('/admin');
+        } else {
+          toast.error("Access Denied: Invalid Admin Credentials");
+        }
       } else {
-        toast.error("Access Denied: Invalid Credentials"); // ✅ Sundar error message
+        // ✅ USER LOGIN LOGIC
+        // User ke liye hum simple entry de rahe hain (Later aap isme database check daal sakte hain)
+        if (email && password.length >= 4) {
+          toast.success("Login Successful! Opening your profile...");
+          navigate('/profile'); // User Profile page ka route
+        } else {
+          toast.error("Please enter a valid email and password");
+        }
       }
       setIsLoading(false);
     }, 1200);
@@ -45,7 +55,7 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#0a0510]">
       
-      {/* BACKGROUND IMAGE - Cinematic Effect */}
+      {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0 z-0">
         <img 
           src={loginart} 
@@ -85,17 +95,21 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
           </div>
 
           <div className="text-center mb-10">
-            <h1 className="text-4xl font-extralight text-white tracking-tighter mb-4 italic font-serif">Vanca <span className="not-italic font-sans font-bold opacity-20">Interio</span></h1>
+            <h1 className="text-4xl font-extralight text-white tracking-tighter mb-4 italic font-serif">
+              Vanca <span className="not-italic font-sans font-bold opacity-20">{isAdmin ? "Admin" : "User"}</span>
+            </h1>
             
             {/* ROLE SELECTOR */}
             <div className="inline-flex p-1 bg-white/5 rounded-full border border-white/10">
               <button 
+                type="button"
                 onClick={() => setIsAdmin(false)}
                 className={`px-6 py-1.5 rounded-full text-[9px] uppercase tracking-widest font-bold transition-all ${!isAdmin ? 'bg-white text-black' : 'text-white/40 hover:text-white'}`}
               >
                 User
               </button>
               <button 
+                type="button"
                 onClick={() => setIsAdmin(true)}
                 className={`px-6 py-1.5 rounded-full text-[9px] uppercase tracking-widest font-bold transition-all ${isAdmin ? 'bg-white text-black' : 'text-white/40 hover:text-white'}`}
               >
@@ -106,18 +120,22 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-1">
-              <label className="text-[9px] uppercase tracking-[0.3em] text-white/30 ml-2 font-black">Authentication ID</label>
+              <label className="text-[9px] uppercase tracking-[0.3em] text-white/30 ml-2 font-black">
+                {isAdmin ? "Authentication ID" : "User Email"}
+              </label>
               <Input
                 name="email"
                 type="email"
-                placeholder="vancainterio@gmail.com"
+                placeholder={isAdmin ? "vancainterio@gmail.com" : "yourname@example.com"}
                 className="h-14 bg-white/[0.02] border-white/5 text-white placeholder:text-white/10 focus:border-white/20 focus:bg-white/5 transition-all rounded-2xl px-6"
                 required
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-[9px] uppercase tracking-[0.3em] text-white/30 ml-2 font-black">Secure Token</label>
+              <label className="text-[9px] uppercase tracking-[0.3em] text-white/30 ml-2 font-black">
+                {isAdmin ? "Secure Token" : "Password"}
+              </label>
               <div className="relative">
                 <Input
                   name="password"
@@ -150,7 +168,7 @@ const LoginPage = ({ setAuth }: LoginPageProps) => {
                 <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }}>
                    <Shield size={18} />
                 </motion.div>
-              ) : "Authenticate Access"}
+              ) : (isAdmin ? "Authenticate Admin" : "User Login")}
             </Button>
           </form>
 
