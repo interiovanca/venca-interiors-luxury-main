@@ -1,21 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 
-// UI Components
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster } from "sonner"; // ✅ ONLY THIS TOASTER
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/hooks/useTheme";
 import ScrollToTop from "@/components/ScrollToTop";
 import FeedbackButton from "./components/FeedbackButton";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 // Pages
 import Index from "./pages/Index";
+import { UserDashboard } from "./pages/user/UserDashboard";
+import { Orders } from "./pages/user/Orders";
+import { OrderTracking } from "./pages/user/OrderTracking";
+import { Wishlist } from "./pages/user/Wishlist";
+import { AccountSettings } from "./pages/user/AccountSettings";
 import LoginPage from "./pages/LoginPage";
 import AdminDashboard from "./pages/AdminDashboard";
-import CategoryPage from "./pages/CategoryPage";
 import ContactPage from "./pages/contactpage";
 import ProductPages from "./pages/projectspage";
 import ServicesPage from "./pages/ServicesPage";
@@ -38,22 +42,11 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
-  // ✅ INITIAL CHECK: Check if strictly "true"
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem("isAdminAuth") === "true";
-  });
+  const { isAuthenticated, isAdmin } = useAuth();
 
-  // ✅ IMPROVED AUTH LOGIC: Handle login and logout properly
-  const handleSetAuth = (status: boolean) => {
-    setIsAuthenticated(status);
-    if (status) {
-      localStorage.setItem("isAdminAuth", "true");
-    } else {
-      // Logout hone par storage se delete karein
-      localStorage.removeItem("isAdminAuth");
-    }
-  };
+  // Determine if we should treat user as admin legacy authenticated
+  const isLegacyAdmin = isAuthenticated && isAdmin;
+  const hasAdminAuth = isLegacyAdmin || localStorage.getItem("isAdminAuth") === "true";
 
   return (
     <AnimatePresence mode="wait">
@@ -65,27 +58,35 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
         <Route path="/our-story" element={<PageTransition><OurStoryPage /></PageTransition>} />
 
-        {/* ✅ LOGIN LOGIC: Direct redirect only if authenticated */}
-        <Route
-          path="/login"
-          element={
-            !isAuthenticated ? (
-              <PageTransition>
-                <LoginPage setAuth={handleSetAuth} />
-              </PageTransition>
-            ) : (
-              <Navigate to="/admin" replace />
-            )
-          }
-        />
+        {['/login', '/signup', '/forgot-password', '/verify-otp', '/reset-password'].map((path) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              !isAuthenticated && !hasAdminAuth ? (
+                <PageTransition>
+                  <LoginPage />
+                </PageTransition>
+              ) : (
+                <Navigate to={hasAdminAuth ? "/admin" : "/user/dashboard"} replace />
+              )
+            }
+          />
+        ))}
 
-        {/* ✅ PROTECTED ADMIN ROUTE */}
+        {/* User Protected Routes */}
+        <Route path="/user/dashboard" element={<ProtectedRoute><PageTransition><UserDashboard /></PageTransition></ProtectedRoute>} />
+        <Route path="/user/orders" element={<ProtectedRoute><PageTransition><Orders /></PageTransition></ProtectedRoute>} />
+        <Route path="/user/orders/:id" element={<ProtectedRoute><PageTransition><OrderTracking /></PageTransition></ProtectedRoute>} />
+        <Route path="/user/wishlist" element={<ProtectedRoute><PageTransition><Wishlist /></PageTransition></ProtectedRoute>} />
+        <Route path="/user/settings" element={<ProtectedRoute><PageTransition><AccountSettings /></PageTransition></ProtectedRoute>} />
+
         <Route
-          path="/admin"
+          path="/admin/*"
           element={
-            isAuthenticated ? (
+            hasAdminAuth ? (
               <PageTransition>
-                <AdminDashboard setAuth={handleSetAuth} />
+                <AdminDashboard setAuth={() => { }} />
               </PageTransition>
             ) : (
               <Navigate to="/login" replace />
@@ -103,13 +104,14 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <FeedbackButton /> 
-          <AnimatedRoutes />
-        </BrowserRouter>
+        <Toaster richColors position="top-right" /> {/* ✅ SONNER */}
+        <AuthProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <FeedbackButton />
+            <AnimatedRoutes />
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

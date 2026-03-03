@@ -1,79 +1,107 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
-import { StatsCardsGrid } from '../components/StatsCards';
+import { AdminLayout } from '../components/admin/AdminLayout';
+import { BusinessOverview } from '../components/admin/BusinessOverview';
 import ProductForm from '../components/ProductForm';
-import { Bell, Menu } from 'lucide-react';
+import CollectionManager from '../components/CollectionManager';
+import InventoryList from '../components/InventoryList';
+import { PackageSearch, FolderTree, ShoppingBag } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const AdminDashboard = ({ setAuth }: { setAuth: (status: boolean) => void }) => {
-  const [activeTab, setActiveTab] = useState('products');
+  const { logout } = useAuth();
+  const [activeTab, setActiveTab] = useState('overview');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [stats, setStats] = useState({ totalProducts: 0, totalOrders: 12, revenue: "₹4,50,000" });
+  const [stats, setStats] = useState({
+    totalProducts: 0,
+    totalOrders: 12,
+    revenue: '₹4,50,000',
+  });
 
+  // Calculate generic stats
   useEffect(() => {
-    const products = JSON.parse(localStorage.getItem('vanca_inventory') || '[]');
-    setStats(prev => ({ ...prev, totalProducts: products.length }));
-  }, []);
+    const products = JSON.parse(
+      localStorage.getItem('vanca_inventory') || '[]'
+    );
+    setStats((prev) => ({ ...prev, totalProducts: products.length }));
+  }, [activeTab]); // Refresh stats when active tab changes
 
-  const handleLogout = () => setAuth(false);
+  const handleLogout = () => {
+    logout();
+    setAuth(false);
+  };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex">
-      <Sidebar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        isOpen={isSidebarOpen} 
-        onLogout={handleLogout} 
-      />
+    <AdminLayout
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      isOpen={isSidebarOpen}
+      setSidebarOpen={setSidebarOpen}
+      onLogout={handleLogout}
+    >
+      <div className="w-full h-full pb-20">
+        {activeTab === 'overview' && <BusinessOverview stats={stats} />}
 
-      <main className="flex-1 overflow-y-auto">
-        <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#050505]/50 backdrop-blur-md sticky top-0 z-50">
-          <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-white/5 rounded-lg">
-            <Menu size={20} />
-          </button>
-          
-          <div className="flex items-center gap-6">
-            <Bell size={20} className="text-gray-400 cursor-pointer" />
-            <div className="flex items-center gap-3 pl-6 border-l border-white/10 text-right">
-              <div>
-                <p className="text-sm font-bold">Admin Panel</p>
-                <p className="text-[10px] text-amber-500 uppercase font-bold tracking-widest">Superuser</p>
+        {activeTab === 'products' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center">
+                <PackageSearch className="text-amber-500" />
               </div>
+              <div>
+                <h1 className="text-3xl font-display font-bold text-white">Product Management</h1>
+                <p className="text-gray-400 text-sm">Upload and manage your premium inventory</p>
+              </div>
+            </div>
+
+            <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/5 p-6 md:p-8 rounded-3xl">
+              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <ShoppingBag size={20} className="text-amber-500" /> Add New Product
+              </h2>
+              <ProductForm onProductAdded={() => {
+                // Refresh local items
+                setActiveTab('inventory');
+              }} />
             </div>
           </div>
-        </header>
+        )}
 
-        <div className="p-8 max-w-7xl mx-auto">
-          {activeTab === 'overview' && (
-            <div className="space-y-8">
-              <h1 className="text-3xl font-bold">Business Overview</h1>
-              <StatsCardsGrid stats={stats} />
-            </div>
-          )}
-
-          {activeTab === 'products' && (
-            <div className="space-y-8">
-              <div>
-                <h1 className="text-3xl font-bold text-white">Inventory</h1>
-                <p className="text-gray-500 text-sm">Manage your premium furniture pieces</p>
+        {activeTab === 'inventory' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center">
+                <FolderTree className="text-blue-500" />
               </div>
-              <ProductForm />
+              <div>
+                <h1 className="text-3xl font-display font-bold text-white">Current Inventory</h1>
+                <p className="text-gray-400 text-sm">View all active published items</p>
+              </div>
             </div>
-          )}
 
-          {activeTab === 'collections' && (
-            <div className="py-20 text-center border border-dashed border-white/10 rounded-3xl text-gray-500">
-              Collection Manager Coming Soon...
+            <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/5 p-6 md:p-8 rounded-3xl">
+              <InventoryList />
             </div>
-          )}
-          
-          {activeTab === 'orders' && (
-            <div className="py-20 text-center border border-dashed border-white/10 rounded-3xl text-gray-500">
-              Order Tracking Coming Soon...
+          </div>
+        )}
+
+        {activeTab === 'collections' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <CollectionManager />
+          </div>
+        )}
+
+        {activeTab === 'orders' && (
+          <div className="py-20 flex flex-col items-center justify-center text-center bg-[#0a0a0a]/60 backdrop-blur-xl border border-dashed border-white/10 rounded-3xl mt-12 animate-in fade-in">
+            <div className="w-20 h-20 rounded-full bg-blue-500/10 flex items-center justify-center mb-6">
+              <ShoppingBag size={32} className="text-blue-500" />
             </div>
-          )}
-        </div>
-      </main>
-    </div>
+            <h3 className="text-2xl font-bold mb-2">Order Tracking System</h3>
+            <p className="text-gray-500 max-w-sm">
+              We are integrating with major logistics partners directly inside your dashboard. Coming soon.
+            </p>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
   );
 };
 

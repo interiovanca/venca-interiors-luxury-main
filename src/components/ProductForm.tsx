@@ -2,118 +2,198 @@ import React, { useState } from 'react';
 import { Upload, X, Check } from 'lucide-react';
 import { toast } from 'sonner';
 
-const ProductForm = () => {
-  const [images, setImages] = useState<string[]>([]);
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  category: string;
+  images: string[];
+  createdAt: number;
+};
+
+const ProductForm = ({ onProductAdded }: { onProductAdded?: () => void }) => {
+  const [images, setImages] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     price: '',
     category: 'Sofa',
-    description: ''
+    description: '',
   });
 
+  /* IMAGE UPLOAD */
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImages(prev => [...prev, reader.result as string]);
-      };
-      reader.readAsDataURL(file);
+    setImages(prev => [...prev, ...files]);
+
+    // Generate previews 
+    const newPreviews = files.map(file => URL.createObjectURL(file));
+    setPreviews(prev => [...prev, ...newPreviews]);
+  };
+
+  const removeImage = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+    setPreviews(prev => {
+      URL.revokeObjectURL(prev[index]); // Free memory 
+      return prev.filter((_, i) => i !== index);
     });
   };
 
-  const saveProduct = () => {
-    if (!formData.name || images.length === 0) {
-      toast.error("Please fill Name and add at least one Image");
+  /* PUBLISH PRODUCT */
+  const handlePublish = async () => {
+    if (!formData.name || !formData.price || images.length === 0) {
+      toast.error('Please fill all required fields');
       return;
     }
 
-    const newProduct = {
-      id: Date.now().toString(),
-      ...formData,
-      image: images[0], // Pehli image ko main image banayenge
-    };
+    setIsSubmitting(true);
 
-    const existing = JSON.parse(localStorage.getItem('vanca_inventory') || '[]');
-    localStorage.setItem('vanca_inventory', JSON.stringify([...existing, newProduct]));
-    
-    toast.success("Product Published Successfully!");
-    // Reset Form
-    setFormData({ name: '', price: '', category: 'Sofa', description: '' });
-    setImages([]);
+    try {
+      // 1. Simulate API Network Request delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // 2. Mock image URLs to avoid LocalStorage limits 
+      // In production, you would upload files to an S3/Cloudinary and get URLs back
+      const mockImageUrls = images.map((_, i) =>
+        `https://images.unsplash.com/photo-1540574163026-643ea20d25b5?ixlib=rb-4.0.3&w=500&q=80&auto=format&fit=crop`
+      );
+
+      const newProduct: Product = {
+        id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+        name: formData.name,
+        description: formData.description,
+        price: formData.price,
+        category: formData.category,
+        images: mockImageUrls,
+        createdAt: Date.now(),
+      };
+
+      // 3. Save to simulated database (localStorage)
+      const existing = JSON.parse(
+        localStorage.getItem('vanca_inventory') || '[]'
+      );
+
+      localStorage.setItem(
+        'vanca_inventory',
+        JSON.stringify([newProduct, ...existing])
+      );
+
+      toast.success('Product published successfully');
+
+      // 4. Reset Form
+      setFormData({
+        name: '',
+        price: '',
+        category: 'Sofa',
+        description: '',
+      });
+      setImages([]);
+      previews.forEach(p => URL.revokeObjectURL(p));
+      setPreviews([]);
+
+      onProductAdded?.();
+    } catch (error) {
+      toast.error('Error publishing product');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2 space-y-6">
-        <div className="bg-[#0a0a0a] border border-white/5 p-8 rounded-3xl">
-          <h3 className="text-lg font-bold mb-6">Product Details</h3>
-          <div className="space-y-4">
-            <input 
-              type="text" 
-              placeholder="Product Name" 
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              className="w-full bg-black border border-white/10 rounded-xl p-4 outline-none focus:border-amber-600 transition-all"
-            />
-            <textarea 
-              placeholder="Description (Premium details...)" 
-              rows={5}
-              value={formData.description}
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
-              className="w-full bg-black border border-white/10 rounded-xl p-4 outline-none focus:border-amber-600 transition-all"
-            />
-          </div>
-        </div>
+    <div className="space-y-6 bg-[#0b0b0b] p-6 rounded-2xl border border-white/10">
+      {/* NAME */}
+      <input
+        type="text"
+        placeholder="Product Name"
+        value={formData.name}
+        onChange={e => setFormData({ ...formData, name: e.target.value })}
+        className="w-full p-4 rounded-lg bg-black border border-white/10"
+      />
 
-        <div className="bg-[#0a0a0a] border border-white/5 p-8 rounded-3xl">
-          <h3 className="text-lg font-bold mb-6">Media Gallery</h3>
-          <div className="grid grid-cols-4 gap-4">
-            {images.map((img, i) => (
-              <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-white/10">
-                <img src={img} className="w-full h-full object-cover" />
-                <button onClick={() => setImages(images.filter((_, idx) => idx !== i))} className="absolute top-2 right-2 bg-red-500 p-1 rounded-md"><X size={12}/></button>
-              </div>
-            ))}
-            <label className="aspect-square border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-amber-600 transition-all">
-              <Upload size={24} className="text-gray-500" />
-              <span className="text-[10px] mt-2 uppercase font-bold text-gray-500">Add Photo</span>
-              <input type="file" hidden multiple onChange={handleImageUpload} />
-            </label>
-          </div>
-        </div>
-      </div>
+      {/* DESCRIPTION */}
+      <textarea
+        placeholder="Product Description"
+        value={formData.description}
+        onChange={e =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+        className="w-full p-4 rounded-lg bg-black border border-white/10"
+      />
 
-      <div className="space-y-6">
-        <div className="bg-[#0a0a0a] border border-white/5 p-8 rounded-3xl">
-          <h3 className="text-lg font-bold mb-4">Pricing & Tag</h3>
-          <div className="space-y-4">
-            <input 
-              type="text" 
-              placeholder="Price (₹)" 
-              value={formData.price}
-              onChange={(e) => setFormData({...formData, price: e.target.value})}
-              className="w-full bg-black border border-white/10 rounded-xl p-4 outline-none"
-            />
-            <select 
-              value={formData.category}
-              onChange={(e) => setFormData({...formData, category: e.target.value})}
-              className="w-full bg-black border border-white/10 rounded-xl p-4 outline-none"
-            >
-              <option>Sofa</option>
-              <option>Tables</option>
-              <option>Seating</option>
-              <option>Décor</option>
-            </select>
-          </div>
-        </div>
-        <button 
-          onClick={saveProduct}
-          className="w-full py-4 bg-amber-600 text-white font-bold rounded-2xl shadow-xl shadow-amber-600/20 hover:bg-amber-700 transition-all flex items-center justify-center gap-2"
+      {/* PRICE + CATEGORY */}
+      <div className="grid grid-cols-2 gap-4">
+        <input
+          type="number"
+          placeholder="Price"
+          value={formData.price}
+          onChange={e => setFormData({ ...formData, price: e.target.value })}
+          className="p-4 rounded-lg bg-black border border-white/10"
+        />
+
+        <select
+          value={formData.category}
+          onChange={e =>
+            setFormData({ ...formData, category: e.target.value })
+          }
+          className="p-4 rounded-lg bg-black border border-white/10"
         >
-          <Check size={20} /> Publish Product
-        </button>
+          <option>Sofa</option>
+          <option>Furniture</option>
+          <option>Seating</option>
+          <option>Tables</option>
+          <option>Décor</option>
+          <option>Lighting</option>
+        </select>
       </div>
+
+      {/* IMAGE UPLOAD */}
+      <label className="flex items-center gap-3 cursor-pointer text-sm text-amber-400">
+        <Upload size={16} />
+        Upload Images
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
+      </label>
+
+      {/* IMAGE PREVIEW */}
+      {previews.length > 0 && (
+        <div className="flex gap-3 flex-wrap">
+          {previews.map((img, i) => (
+            <div key={i} className="relative">
+              <img
+                src={img}
+                alt="Upload preview"
+                className="w-24 h-24 object-cover rounded-lg"
+              />
+              <button
+                onClick={() => removeImage(i)}
+                className="absolute -top-2 -right-2 bg-red-500 p-1 rounded-full text-white"
+                disabled={isSubmitting}
+              >
+                <X size={12} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* PUBLISH */}
+      <button
+        onClick={handlePublish}
+        disabled={isSubmitting}
+        className={`px-6 py-4 rounded-xl flex items-center gap-2 transition-all font-medium
+          ${isSubmitting ? 'bg-amber-500/50 text-black/50 cursor-not-allowed' : 'bg-amber-500 text-black hover:bg-amber-400'}`}
+      >
+        <Check size={16} />
+        {isSubmitting ? 'Publishing...' : 'Publish Product'}
+      </button>
     </div>
   );
 };

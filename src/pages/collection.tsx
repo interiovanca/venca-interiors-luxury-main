@@ -1,162 +1,181 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CollectionCard from '@/components/collectioncard';
 
-// 🔹 Define Interface for Type Safety
-interface Product {
+type Product = {
   id: string;
   name: string;
   description: string;
   category: string;
   image: string;
-}
+};
 
-// Filter categories
-const filterCategories = ['All', 'Sofa', 'Tables', 'Seating', 'Décor', 'Lighting'];
+const FILTERS = ['All', 'Furniture', 'Seating', 'Tables', 'Décor', 'Lighting'];
+
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80';
 
 const CollectionsPage = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [activeFilter, setActiveFilter] = useState('All');
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  
-  // 🔹 STATE FOR DYNAMIC PRODUCTS
-  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
 
+  /* HEADER SCROLL */
   useEffect(() => {
-    setIsMounted(true);
-    
-    // Scroll logic
-    const handleScroll = () => setIsHeaderVisible(window.scrollY > 100);
-    window.addEventListener('scroll', handleScroll);
-
-    // 🔹 REAL-TIME LOGIC: Fetch products from localStorage
-    const loadProducts = () => {
-      try {
-        const savedProducts = localStorage.getItem('vanca_inventory');
-        if (savedProducts) {
-          setDisplayProducts(JSON.parse(savedProducts));
-        } else {
-          // Fallback Initial setup
-          setDisplayProducts([
-            { id: '1', name: 'Royal Velvet Sofa', description: 'Luxury comfort, designed to impress', category: 'Sofa', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800' },
-            { id: '2', name: 'Oak Dining Table', description: 'Where memories are crafted', category: 'Tables', image: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800' }
-          ]);
-        }
-      } catch (error) {
-        console.error("Failed to load products:", error);
-      }
-    };
-
-    loadProducts();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsHeaderVisible(window.scrollY > 80);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Filter logic (Memoized style)
-  const filteredCollections = activeFilter === 'All'
-    ? displayProducts
-    : displayProducts.filter((item) => item.category.toLowerCase() === activeFilter.toLowerCase());
+  /* LOAD FROM ADMIN (SAFE) */
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('vanca_inventory');
+      if (!raw) {
+        setProducts([]);
+        return;
+      }
 
-  // Grid size logic
-  const getCardSize = (index: number) => {
-    return index % 5 === 0 ? 'large' : 'medium';
-  };
+      const parsed = JSON.parse(raw);
 
-  // Prevent hydration error on AWS/Next.js
-  if (!isMounted) return null;
+      if (!Array.isArray(parsed)) {
+        setProducts([]);
+        return;
+      }
+
+      const cleaned: Product[] = parsed
+        .filter((p: any) => p && p.name) // minimum required
+        .map((p: any, index: number) => ({
+          id: p.id ?? `${p.name}-${index}`,
+          name: p.name ?? 'Untitled',
+          description: p.description ?? '',
+          category: p.category ?? 'Furniture',
+          image: p.image || FALLBACK_IMAGE,
+        }));
+
+      setProducts(cleaned);
+    } catch (err) {
+      console.error('Collection load error:', err);
+      setProducts([]);
+    }
+  }, []);
+
+  /* FILTER */
+  const visible =
+    activeFilter === 'All'
+      ? products
+      : products.filter(p => p.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-[#080808] text-slate-200">
+    <div className="min-h-screen bg-background">
       <Header isVisible={isHeaderVisible} />
 
-      {/* HERO SECTION */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80"
-            alt="Interior"
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
-        </div>
+      {/* HERO */}
+      <section className="relative h-[75vh] bg-black overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80"
+          className="absolute inset-0 w-full h-full object-cover"
+          alt=""
+        />
+        <div className="absolute inset-0 bg-black/70" />
 
-        <div className="relative z-10 text-center px-6">
-          <motion.span 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }}
-            className="text-amber-500 text-xs tracking-[0.5em] uppercase mb-4 block"
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-6xl lg:text-7xl text-white mb-6"
           >
-            Bespoke Furniture
-          </motion.span>
-          <motion.h1 
-            initial={{ y: 20, opacity: 0 }} 
-            animate={{ y: 0, opacity: 1 }}
-            className="text-5xl md:text-7xl font-display font-bold tracking-tighter"
-          >
-            The <span className="text-amber-600 italic">Collections</span>
+            Our Collections
           </motion.h1>
+
+          <p className="text-white/80 max-w-2xl text-lg">
+            Luxury furniture & décor crafted with perfection
+          </p>
         </div>
       </section>
 
-      {/* DYNAMIC FILTER TABS */}
-      <section className="sticky top-0 z-40 bg-[#080808]/80 backdrop-blur-md py-6 border-y border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-2">
-            {filterCategories.map(category => (
-              <button
-                key={category}
-                onClick={() => setActiveFilter(category)}
-                className={`px-5 py-2 text-[10px] tracking-widest uppercase transition-all rounded-full border ${
-                  activeFilter === category
-                    ? 'bg-amber-600 border-amber-600 text-white shadow-lg shadow-amber-600/20'
-                    : 'border-white/10 text-white/40 hover:border-white/20'
+      {/* FILTERS */}
+      <section className="py-14">
+        <div className="container mx-auto px-6 flex flex-wrap justify-center gap-3">
+          {FILTERS.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className={`px-6 py-3 text-xs uppercase tracking-widest border transition
+                ${
+                  activeFilter === cat
+                    ? 'bg-amber-500 text-black border-amber-500'
+                    : 'border-border text-muted-foreground hover:border-amber-400'
                 }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* PRODUCT GRID */}
-      <section className="py-20 min-h-[400px]">
+      {/* GRID */}
+      <section className="pb-28">
         <div className="container mx-auto px-6">
-          <AnimatePresence mode="wait">
-            {filteredCollections.length > 0 ? (
+          {visible.length === 0 ? (
+            <p className="text-center text-muted-foreground">
+              No products available
+            </p>
+          ) : (
+            <AnimatePresence mode="wait">
               <motion.div
                 key={activeFilter}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
               >
-                {filteredCollections.map((product, index) => (
+                {visible.map((item, index) => (
                   <CollectionCard
-                    key={product.id}
-                    id={product.id}
-                    name={product.name}
-                    image={product.image}
-                    tagline={product.description}
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    image={item.image}
+                    tagline={item.description}
                     index={index}
-                    size={getCardSize(index)}
+                    size="medium"
                   />
                 ))}
               </motion.div>
-            ) : (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-20 border border-dashed border-white/10 rounded-[3rem]"
-              >
-                <p className="text-white/20 uppercase tracking-widest text-sm">
-                  No products found in {activeFilter}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          )}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-card text-center">
+        <h2 className="text-4xl md:text-5xl mb-6">
+          Let’s Design Your Dream Space
+        </h2>
+        <p className="text-muted-foreground mb-10">
+          Bespoke furniture handcrafted for you
+        </p>
+
+        <div className="flex justify-center gap-4">
+          <Link
+            to="/"
+            className="px-8 py-4 bg-amber-500 text-black uppercase text-sm tracking-widest flex items-center gap-2"
+          >
+            Explore <ArrowRight size={16} />
+          </Link>
+
+          <Link
+            to="/contact"
+            className="px-8 py-4 border border-border uppercase text-sm tracking-widest"
+          >
+            Contact
+          </Link>
         </div>
       </section>
 
