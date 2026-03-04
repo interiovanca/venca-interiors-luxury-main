@@ -36,8 +36,8 @@ const FloatingThemeToggle = ({ isVisible }: FloatingThemeToggleProps) => {
   return (
     <>
       {/* Drag constraints container - full viewport */}
-      <div 
-        ref={constraintsRef} 
+      <div
+        ref={constraintsRef}
         className="fixed inset-0 pointer-events-none z-40 hidden md:block"
       />
 
@@ -59,13 +59,12 @@ const FloatingThemeToggle = ({ isVisible }: FloatingThemeToggleProps) => {
             style={{ x: position.x, y: position.y }}
           >
             {/* Drag handle */}
-            <motion.div 
+            <motion.div
               className={`p-1 text-white/30 hover:text-white/50 transition-colors ${isDragging ? 'text-white/50' : ''}`}
             >
               <GripVertical className="w-3 h-3" />
             </motion.div>
 
-            {/* Toggle button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

@@ -1,0 +1,44 @@
+﻿commit 60256a949e60a8a585959c7219c73a9e782b0318
+Author: Ankit Mishra <interiovanca@gmail.com>
+Date:   Sat Feb 7 11:18:19 2026 +0530
+
+    Initial full project upload
+
+diff --git a/src/components/ThemeToggle.tsx b/src/components/ThemeToggle.tsx
+new file mode 100644
+index 0000000..c0af550
+--- /dev/null
++++ b/src/components/ThemeToggle.tsx
+@@ -0,0 +1,32 @@
++import { motion } from 'framer-motion';
++import { Sun, Moon } from 'lucide-react';
++import { useTheme } from '@/hooks/useTheme';
++
++const ThemeToggle = () => {
++  const { theme, toggleTheme } = useTheme();
++
++  return (
++    <motion.button
++      initial={{ opacity: 0, scale: 0.8 }}
++      animate={{ opacity: 1, scale: 1 }}
++      transition={{ duration: 0.3 }}
++      onClick={toggleTheme}
++      className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 group"
++      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
++    >
++      <motion.div
++        initial={false}
++        animate={{ rotate: theme === 'dark' ? 0 : 180 }}
++        transition={{ duration: 0.5, ease: 'easeInOut' }}
++      >
++        {theme === 'dark' ? (
++          <Sun className="w-4 h-4 text-champagne/70 group-hover:text-champagne transition-colors" />
++        ) : (
++          <Moon className="w-4 h-4 text-champagne/70 group-hover:text-champagne transition-colors" />
++        )}
++      </motion.div>
++    </motion.button>
++  );
++};
++
++export default ThemeToggle;

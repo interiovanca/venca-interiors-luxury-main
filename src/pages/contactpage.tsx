@@ -357,7 +357,7 @@ const ContactPage = () => {
         />
         
         {/* Map Overlay Card */}
-        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-card/95 backdrop-blur-md border border-border rounded-lg p-6 max-w-xs">
+        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-white/95 backdrop-blur-md border border-border rounded-lg p-6 max-w-xs">
           <h3 className="font-display text-lg text-foreground mb-2">Our Studio</h3>
           <p className="text-muted-foreground text-sm font-body">
             shop no-5, a-1/26, whs block, Kirti Nagar, New Delhi, Delhi 110015<br />

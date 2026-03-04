@@ -7,7 +7,7 @@ import aboutImage from '@/assets/about-interior.jpg';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-[#f5f0df] dark:bg-black transition-colors duration-300">
+    <div className="min-h-screen bg-background dark:bg-black transition-colors duration-300">
       <Header isVisible={true} />
 
       {/* Hero */}

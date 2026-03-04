@@ -55,7 +55,7 @@ const CollectionsPage = () => {
           name: p.name ?? 'Untitled',
           description: p.description ?? '',
           category: p.category ?? 'Furniture',
-          image: p.image || FALLBACK_IMAGE,
+          image: p.image || (p.images && p.images[0]) || FALLBACK_IMAGE,
         }));
 
       setProducts(cleaned);
@@ -108,10 +108,9 @@ const CollectionsPage = () => {
               key={cat}
               onClick={() => setActiveFilter(cat)}
               className={`px-6 py-3 text-xs uppercase tracking-widest border transition
-                ${
-                  activeFilter === cat
-                    ? 'bg-amber-500 text-black border-amber-500'
-                    : 'border-border text-muted-foreground hover:border-amber-400'
+                ${activeFilter === cat
+                  ? 'bg-amber-500 text-black border-amber-500'
+                  : 'border-border text-muted-foreground hover:border-amber-400'
                 }`}
             >
               {cat}

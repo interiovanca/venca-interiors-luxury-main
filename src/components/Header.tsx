@@ -1,9 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, User, Menu, X } from "lucide-react";
+import { Search, User, Menu, X, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useCart } from "../context/CartContext";
 import ThemeToggle from "./ThemeToggle";
 import FloatingThemeToggle from "./FloatingThemeToggle";
+import SearchBar from "./SearchBar";
 
 interface HeaderProps {
   isVisible: boolean;
@@ -27,31 +29,9 @@ const mobileNavItems = [
 
 const Header = ({ isVisible }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const searchRef = useRef<HTMLDivElement>(null);
+  const { cartCount } = useCart();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
-  // ✅ Close search when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
-        setIsSearchOpen(false);
-      }
-    }
-
-    if (isSearchOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isSearchOpen]);
 
   return (
     <>
@@ -87,12 +67,19 @@ const Header = ({ isVisible }: HeaderProps) => {
           </Link>
 
           <div className="flex items-center gap-3">
-            <button onClick={() => setIsSearchOpen(true)}>
-              <Search className="w-4 h-4 text-white/70" />
-            </button>
+            <SearchBar />
 
             <Link to="/login">
               <User className="w-4 h-4 text-white/70" />
+            </Link>
+
+            <Link to="/checkout" className="relative group">
+              <ShoppingBag className="w-4 h-4 text-white/70 group-hover:text-amber-500 transition-colors" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-amber-600 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                  {cartCount}
+                </span>
+              )}
             </Link>
           </div>
         </div>
@@ -106,13 +93,20 @@ const Header = ({ isVisible }: HeaderProps) => {
           </Link>
 
           <div className="absolute right-6 flex items-center gap-5">
-            <Link to="/login">
-              <User className="w-4 h-4 text-white/70" />
+            <Link to="/login" className="hover:text-amber-500 transition-colors">
+              <User className="w-4 h-4 text-white/70 group-hover:text-amber-500" />
             </Link>
 
-            <button onClick={() => setIsSearchOpen(true)}>
-              <Search className="w-4 h-4 text-white/70" />
-            </button>
+            <SearchBar />
+
+            <Link to="/checkout" className="relative group hover:text-amber-500 transition-colors border-l border-white/10 pl-5">
+              <ShoppingBag className="w-4 h-4 text-white/70 group-hover:text-amber-500" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 right-[-8px] bg-amber-600 text-[10px] w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold shadow-lg text-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 
@@ -133,71 +127,7 @@ const Header = ({ isVisible }: HeaderProps) => {
         </nav>
       </motion.header>
 
-      {/* 🌟 COMPACT MODERN SEARCH BAR */}
-      <AnimatePresence>
-        {isSearchOpen && (
-          <>
-            {/* Transparent click layer */}
-            <div className="fixed inset-0 z-40" />
 
-            <motion.div
-              ref={searchRef}
-              initial={{ y: -15, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -15, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed top-[80px] left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-xl"
-            >
-              <div className="flex items-center gap-3 px-5 py-2 rounded-full
-                bg-white/90 dark:bg-[#121212]
-                backdrop-blur-md shadow-lg">
-
-                <Search className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-
-                <input
-                autoFocus
-                    type="text"
-                    placeholder="Search furniture, designs..."
-                    onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                          const query = (e.target as HTMLInputElement).value.toLowerCase();
-
-                          const elements = document.querySelectorAll("p, h1, h2, h3, h4, span");
-
-                               let found = false;
-
-      elements.forEach((el) => {
-        if (el.textContent?.toLowerCase().includes(query) && !found) {
-          el.scrollIntoView({ behavior: "smooth", block: "center" });
-          el.classList.add("ring-2", "ring-yellow-500");
-          found = true;
-
-          setTimeout(() => {
-            el.classList.remove("ring-2", "ring-yellow-500");
-          }, 2000);
-        }
-      });
-
-      setIsSearchOpen(false);
-    }
-  }}
-
-                  className="flex-1 bg-transparent outline-none
-                  text-gray-900 dark:text-white
-                  placeholder:text-gray-400 dark:placeholder:text-gray-500"
-                />
-
-                <button
-                  onClick={() => setIsSearchOpen(false)}
-                  className="text-xs text-gray-500 hover:text-black dark:hover:text-white"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
       {/* MOBILE DRAWER */}
       <AnimatePresence>

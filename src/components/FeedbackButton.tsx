@@ -118,7 +118,7 @@ const FeedbackButton = () => {
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              className="fixed inset-x-4 top-1/2 -translate-y-1/2 mx-auto z-[10001] w-full max-w-md bg-white border border-zinc-200 rounded-xl shadow-2xl p-6"
+              className="fixed inset-x-4 top-1/2 -translate-y-1/2 mx-auto z-[10001] w-full max-w-md bg-card border border-zinc-200 rounded-xl shadow-2xl p-6"
             >
               <button onClick={handleClose} className="absolute top-4 right-4 text-zinc-400 hover:text-black">
                 <X className="w-5 h-5" />

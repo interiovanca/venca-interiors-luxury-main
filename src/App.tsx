@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/hooks/useTheme";
 import ScrollToTop from "@/components/ScrollToTop";
 import FeedbackButton from "./components/FeedbackButton";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 // Pages
@@ -25,7 +26,12 @@ import ProductPages from "./pages/projectspage";
 import ServicesPage from "./pages/ServicesPage";
 import OurStoryPage from "./pages/OurStoryPage";
 import CollectionPage from "./pages/collection";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import FaqPage from "./pages/FaqPage";
 import NotFound from "./pages/NotFound";
+import AboutPage from "./pages/AboutPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +63,11 @@ const AnimatedRoutes = () => {
         <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
         <Route path="/our-story" element={<PageTransition><OurStoryPage /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+        <Route path="/faq" element={<PageTransition><FaqPage /></PageTransition>} />
+        <Route path="/product/:id" element={<PageTransition><ProductDetailPage /></PageTransition>} />
+        <Route path="/checkout" element={<PageTransition><CheckoutPage /></PageTransition>} />
+        <Route path="/search" element={<PageTransition><SearchResultsPage /></PageTransition>} />
 
         {['/login', '/signup', '/forgot-password', '/verify-otp', '/reset-password'].map((path) => (
           <Route
@@ -106,11 +117,13 @@ const App = () => (
       <TooltipProvider>
         <Toaster richColors position="top-right" /> {/* ✅ SONNER */}
         <AuthProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <FeedbackButton />
-            <AnimatedRoutes />
-          </BrowserRouter>
+          <CartProvider>
+            <BrowserRouter>
+              <ScrollToTop />
+              <FeedbackButton />
+              <AnimatedRoutes />
+            </BrowserRouter>
+          </CartProvider>
         </AuthProvider>
       </TooltipProvider>
     </ThemeProvider>

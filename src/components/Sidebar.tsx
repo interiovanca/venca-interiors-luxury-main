@@ -40,8 +40,8 @@ const Sidebar = ({ activeTab, setActiveTab, isOpen, onLogout }: SidebarProps) =>
               onClick={() => setActiveTab(item.id)}
               title={!isOpen ? item.label : undefined}
               className={`w-full flex items-center gap-4 p-3.5 rounded-2xl transition-all duration-300 relative group overflow-hidden ${isActive
-                  ? 'text-black font-semibold'
-                  : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                ? 'text-black font-semibold'
+                : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`}
             >
               {isActive && (

@@ -16,7 +16,7 @@ export const Orders = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EC] font-sans pb-20">
+    <div className="min-h-screen bg-background font-sans pb-20">
 
       <div className="bg-[#2A2520] pt-12 pb-24 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-5 blur-xl mix-blend-overlay" />
@@ -50,10 +50,10 @@ export const Orders = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}
             key={order.id}
-            className="bg-white rounded-[2rem] p-6 lg:p-8 shadow-xl border border-[#EAE4D7] flex flex-col md:flex-row gap-8 items-start md:items-center hover:-translate-y-1 transition-transform group"
+            className="bg-card rounded-[2rem] p-6 lg:p-8 shadow-xl border border-border flex flex-col md:flex-row gap-8 items-start md:items-center hover:-translate-y-1 transition-transform group"
           >
             {/* Image */}
-            <div className="w-full md:w-48 h-48 rounded-2xl overflow-hidden bg-[#F5F2EC] shrink-0">
+            <div className="w-full md:w-48 h-48 rounded-2xl overflow-hidden bg-muted shrink-0">
               <img src={order.img} alt={order.product} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             </div>
 
@@ -61,14 +61,14 @@ export const Orders = () => {
             <div className="flex-1 w-full flex flex-col justify-between h-full">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <span className="text-xs font-bold text-[#A79D93] bg-[#F5F2EC] px-3 py-1 rounded-full">{order.id}</span>
+                  <span className="text-xs font-bold text-[#A79D93] bg-muted px-3 py-1 rounded-full">{order.id}</span>
                   <h3 className="text-xl font-bold text-[#2A2520] mt-3">{order.product}</h3>
                   <p className="text-sm font-medium text-[#6D655E] mt-1">{order.items} Item{order.items > 1 ? 's' : ''}</p>
                 </div>
                 <span className="font-display font-bold text-2xl text-[#2A2520]">{order.price}</span>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 py-4 border-t border-[#F5F2EC] mt-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 py-4 border-t border-border mt-4">
                 <div>
                   <p className="text-[10px] text-[#A79D93] uppercase font-bold tracking-widest">Ordered On</p>
                   <p className="text-sm font-bold text-[#6D655E] mt-1">{order.date}</p>
@@ -76,7 +76,7 @@ export const Orders = () => {
                 <div>
                   <p className="text-[10px] text-[#A79D93] uppercase font-bold tracking-widest">Status</p>
                   <div className={`text-sm font-bold flex items-center gap-1.5 mt-1 ${order.status === 'Delivered' ? 'text-emerald-600' :
-                      order.status === 'Processing' ? 'text-amber-500' : 'text-blue-600'
+                    order.status === 'Processing' ? 'text-amber-500' : 'text-blue-600'
                     }`}>
                     {order.status === 'Delivered' ? <CheckCircle className="w-4 h-4" /> :
                       order.status === 'Shipped' ? <Truck className="w-4 h-4" /> : <RefreshCw className="w-4 h-4" />}
@@ -91,7 +91,7 @@ export const Orders = () => {
               <Button onClick={() => navigate(`/user/orders/${order.id.replace('#', '')}`)} className="w-full bg-[#2A2520] hover:bg-[#1A1714] text-white rounded-xl h-12 shadow-lg shadow-[#2A2520]/20 font-semibold px-8 md:px-10">
                 Track Delivery
               </Button>
-              <Button variant="outline" className="w-full bg-white border-[#EAE4D7] text-[#6D655E] hover:bg-[#F5F2EC] hover:text-[#2A2520] rounded-xl h-12 shadow-sm font-semibold">
+              <Button variant="outline" className="w-full bg-card border-border text-[#6D655E] hover:bg-muted hover:text-[#2A2520] rounded-xl h-12 shadow-sm font-semibold">
                 View Details
               </Button>
             </div>

@@ -16,7 +16,7 @@ export const Wishlist = () => {
   const removeItem = (id: number) => setItems(items.filter(item => item.id !== id));
 
   return (
-    <div className="min-h-screen bg-[#F5F2EC] font-sans pb-20">
+    <div className="min-h-screen bg-background font-sans pb-20">
 
       <div className="bg-[#2A2520] pt-12 pb-16 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-10 blur-sm mix-blend-overlay" />
@@ -38,7 +38,7 @@ export const Wishlist = () => {
 
       <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-20">
         {items.length === 0 ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-white rounded-[2rem] p-16 text-center shadow-xl border border-[#EAE4D7]">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-card rounded-[2rem] p-16 text-center shadow-xl border border-border">
             <Heart className="w-16 h-16 text-[#EAE4D7] mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-[#2A2520] mb-2">Your wishlist is empty</h2>
             <p className="text-[#6D655E] mb-8">Discover our premium collections and add your favorites here.</p>
@@ -55,9 +55,9 @@ export const Wishlist = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
                   key={item.id}
-                  className="bg-white rounded-[2rem] p-4 shadow-md border border-[#EAE4D7] flex flex-col group hover:shadow-2xl transition-shadow"
+                  className="bg-card rounded-[2rem] p-4 shadow-md border border-border flex flex-col group hover:shadow-2xl transition-shadow"
                 >
-                  <div className="relative w-full h-64 rounded-2xl overflow-hidden bg-[#F5F2EC] mb-5">
+                  <div className="relative w-full h-64 rounded-2xl overflow-hidden bg-muted mb-5">
                     <img src={item.img} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     <button
                       onClick={() => removeItem(item.id)}
@@ -80,7 +80,7 @@ export const Wishlist = () => {
                       disabled={!item.stock}
                       className={`mt-auto w-full h-12 rounded-xl flex items-center justify-center gap-2 font-semibold shadow-md transition-colors ${item.stock
                           ? 'bg-[#2A2520] hover:bg-[#1A1714] text-white'
-                          : 'bg-[#F5F2EC] text-[#A79D93] border border-[#EAE4D7]'
+                          : 'bg-muted text-[#A79D93] border border-border'
                         }`}
                     >
                       <ShoppingBag className="w-4 h-4" />

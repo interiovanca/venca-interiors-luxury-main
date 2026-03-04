@@ -29,7 +29,7 @@ export const AccountSettings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F2EC] font-sans pb-20">
+    <div className="min-h-screen bg-background font-sans pb-20">
 
       {/* Header */}
       <div className="bg-[#2A2520] pt-12 pb-24 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
@@ -54,7 +54,7 @@ export const AccountSettings = () => {
       <div className="max-w-5xl mx-auto px-6 -mt-12 relative z-20 flex flex-col md:flex-row gap-8">
 
         {/* Sidebar Nav */}
-        <div className="w-full md:w-64 shrink-0 bg-white p-4 rounded-[2rem] shadow-xl border border-[#EAE4D7] flex flex-col gap-2 h-fit">
+        <div className="w-full md:w-64 shrink-0 bg-card p-4 rounded-[2rem] shadow-xl border border-border flex flex-col gap-2 h-fit">
           <TabButton icon={<User />} label="Personal Info" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
           <TabButton icon={<Lock />} label="Security" active={activeTab === 'security'} onClick={() => setActiveTab('security')} />
           <TabButton icon={<Building />} label="Addresses" active={activeTab === 'address'} onClick={() => setActiveTab('address')} />
@@ -64,7 +64,7 @@ export const AccountSettings = () => {
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}
-          className="flex-1 bg-white p-8 lg:p-12 rounded-[2rem] shadow-xl border border-[#EAE4D7]"
+          className="flex-1 bg-card p-8 lg:p-12 rounded-[2rem] shadow-xl border border-border"
         >
           {activeTab === 'profile' && (
             <div>
@@ -76,7 +76,7 @@ export const AccountSettings = () => {
                   <FormField icon={<Phone />} label="Phone Number" defaultValue="+91 98765 43210" type="tel" />
                 </div>
 
-                <div className="pt-6 border-t border-[#F5F2EC]">
+                <div className="pt-6 border-t border-border">
                   <Button type="submit" className="bg-[#BDA183] hover:bg-[#8C745A] text-white px-8 h-12 rounded-xl font-semibold shadow-md inline-flex">
                     Save Changes <Check className="w-4 h-4 ml-2" />
                   </Button>
@@ -105,17 +105,17 @@ export const AccountSettings = () => {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-[#2A2520]">Saved Addresses</h2>
-                <Button variant="outline" className="border-[#BDA183] text-[#BDA183] hover:bg-[#BDA183] hover:text-white rounded-full bg-[#F5F2EC] px-4 font-semibold shadow-sm text-xs">
+                <Button variant="outline" className="border-[#BDA183] text-[#BDA183] hover:bg-[#BDA183] hover:text-white rounded-full bg-muted px-4 font-semibold shadow-sm text-xs">
                   <Plus className="w-4 h-4 mr-1" /> Add New
                 </Button>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {addresses.map((addr) => (
-                  <div key={addr.id} className="p-6 rounded-2xl border-2 border-[#EAE4D7] bg-[#F5F2EC]/40 hover:border-[#BDA183] transition-colors relative group">
+                  <div key={addr.id} className="p-6 rounded-2xl border-2 border-border bg-muted/40 hover:border-[#BDA183] transition-colors relative group">
                     <div className="absolute top-4 right-4 flex opacity-0 group-hover:opacity-100 transition-opacity gap-2">
-                      <button className="p-2 bg-white rounded-full text-[#BDA183] shadow hover:bg-[#BDA183] hover:text-white"><Edit2 className="w-4 h-4" /></button>
-                      <button className="p-2 bg-white rounded-full text-red-500 shadow hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>
+                      <button className="p-2 bg-card rounded-full text-[#BDA183] shadow hover:bg-[#BDA183] hover:text-white"><Edit2 className="w-4 h-4" /></button>
+                      <button className="p-2 bg-card rounded-full text-red-500 shadow hover:bg-red-500 hover:text-white"><Trash2 className="w-4 h-4" /></button>
                     </div>
                     <h4 className="font-bold text-[#2A2520] flex items-center gap-2 mb-2">
                       <MapPin className="w-4 h-4 text-amber-500" /> {addr.label}
@@ -139,7 +139,7 @@ export const AccountSettings = () => {
 };
 
 const TabButton = ({ icon, label, active, onClick }: any) => (
-  <button onClick={onClick} className={`flex items-center gap-3 w-full p-4 rounded-xl transition-all duration-300 ${active ? 'bg-[#2A2520] text-amber-500 shadow-lg shadow-[#2A2520]/20 translate-x-2' : 'hover:bg-[#F5F2EC] text-[#6D655E] hover:text-[#2A2520]'}`}>
+  <button onClick={onClick} className={`flex items-center gap-3 w-full p-4 rounded-xl transition-all duration-300 ${active ? 'bg-[#2A2520] text-amber-500 shadow-lg shadow-[#2A2520]/20 translate-x-2' : 'hover:bg-muted text-[#6D655E] hover:text-[#2A2520]'}`}>
     {React.cloneElement(icon, { className: "w-5 h-5" })} <span className="font-semibold text-sm">{label}</span>
   </button>
 );
@@ -149,7 +149,7 @@ const FormField = ({ icon, label, type = "text", defaultValue, placeholder }: an
     <label className="text-[10px] font-bold text-[#6D655E] uppercase tracking-wider ml-1">{label}</label>
     <div className="relative">
       {React.cloneElement(icon, { className: "absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#BDA183]" })}
-      <Input type={type} defaultValue={defaultValue} placeholder={placeholder} className="pl-11 h-12 bg-[#F5F2EC] border-transparent focus:border-[#BDA183] rounded-xl text-[#2A2520] transition-colors" />
+      <Input type={type} defaultValue={defaultValue} placeholder={placeholder} className="pl-11 h-12 bg-muted border-transparent focus:border-[#BDA183] rounded-xl text-[#2A2520] transition-colors" />
     </div>
   </div>
 );

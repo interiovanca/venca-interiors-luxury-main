@@ -105,7 +105,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-8 pt-4 border-t border-white/5 text-center">
           <p className="text-xs text-white/40 tracking-wide">
-            © 2024 Vanca Interio. All rights reserved.
+            © 2026 Vanca Interio. All rights reserved.
           </p>
         </div>
 

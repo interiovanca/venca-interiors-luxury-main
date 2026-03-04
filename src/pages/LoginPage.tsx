@@ -89,8 +89,15 @@ const LoginPage = () => {
     if (role === 'admin') {
       navigate('/admin/dashboard');
     } else {
-      setTimeout(() => toast.success("🛒 Your cart has been restored!"), 800);
-      navigate('/user/dashboard');
+      const redirectPath = localStorage.getItem('redirect_after_login');
+      if (redirectPath) {
+        localStorage.removeItem('redirect_after_login');
+        setTimeout(() => toast.success("Cart restored securely!"), 800);
+        navigate(redirectPath);
+      } else {
+        setTimeout(() => toast.success("🛒 Your catalog has been loaded!"), 800);
+        navigate('/user/dashboard');
+      }
     }
   };
 
@@ -175,7 +182,7 @@ const LoginPage = () => {
                     <Input
                       value={email} onChange={(e) => setEmail(e.target.value)}
                       placeholder={isAdmin ? "admin@vanca.com" : "Enter email or phone"}
-                      className={`pl-11 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white placeholder:text-gray-600 focus:border-amber-500/50' : 'bg-[#F5F2EC] border-transparent text-[#2A2520] placeholder:text-[#A79D93] focus:border-[#BDA183]'}`}
+                      className={`pl-11 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white placeholder:text-gray-600 focus:border-amber-500/50' : 'bg-muted border-transparent text-[#2A2520] placeholder:text-[#A79D93] focus:border-[#BDA183]'}`}
                       required
                     />
                   </div>
@@ -188,7 +195,7 @@ const LoginPage = () => {
                     <Input
                       type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className={`pl-11 pr-12 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white focus:border-amber-500/50' : 'bg-[#F5F2EC] border-transparent text-[#2A2520] focus:border-[#BDA183]'}`}
+                      className={`pl-11 pr-12 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white focus:border-amber-500/50' : 'bg-muted border-transparent text-[#2A2520] focus:border-[#BDA183]'}`}
                       required
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
@@ -200,7 +207,7 @@ const LoginPage = () => {
                 {!isAdmin && (
                   <div className="flex items-center justify-between px-1">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="checkbox" className="w-4 h-4 rounded border-[#BDA183] text-[#BDA183] bg-[#F5F2EC]" />
+                      <input type="checkbox" className="w-4 h-4 rounded border-[#BDA183] text-[#BDA183] bg-muted" />
                       <span className="text-xs text-[#6D655E] group-hover:text-[#2A2520]">Remember me</span>
                     </label>
                     <button type="button" onClick={() => setView('forgot')} className="text-xs font-medium text-[#BDA183] hover:text-[#8C745A]">
@@ -222,7 +229,7 @@ const LoginPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
-                  <button className={`h-12 flex items-center justify-center gap-3 rounded-xl border transition-colors ${isAdmin ? 'border-white/10 bg-white/5 hover:bg-white/10 text-white' : 'border-[#E1DDD6] bg-[#F5F2EC]/50 hover:bg-[#EAE4D7] text-[#2A2520]'}`}>
+                  <button className={`h-12 flex items-center justify-center gap-3 rounded-xl border transition-colors ${isAdmin ? 'border-white/10 bg-white/5 hover:bg-white/10 text-white' : 'border-border bg-muted/50 hover:bg-[#EAE4D7] text-[#2A2520]'}`}>
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
                     <span className="text-xs font-bold">Sign in with Google</span>
                   </button>
@@ -238,13 +245,27 @@ const LoginPage = () => {
                       Sign Up
                     </button>
                   </p>
-                  <div className="w-full px-6 py-4 bg-[#F5F2EC] rounded-2xl border border-[#E1DDD6]/50 flex items-center justify-between cursor-pointer hover:bg-[#EAE4D7] transition-colors group" onClick={() => navigate('/collection')}>
-                    <div className="flex items-center gap-3">
-                      <ShoppingCart className="text-[#BDA183] w-5 h-5" />
-                      <span className="text-xs font-semibold text-[#2A2520]">Guest Checkout</span>
+
+                  {/* Guest Checkout Option */}
+                  {localStorage.getItem('redirect_after_login') && (
+                    <div className="w-full px-6 py-4 bg-muted rounded-2xl border border-border flex items-center justify-between cursor-pointer hover:bg-[#EAE4D7] transition-colors group" onClick={() => navigate('/checkout')}>
+                      <div className="flex items-center gap-3">
+                        <ShoppingCart className="text-[#BDA183] w-5 h-5" />
+                        <span className="text-xs font-semibold text-[#2A2520]">Continue as Guest</span>
+                      </div>
+                      <ArrowLeft className="w-4 h-4 rotate-180 text-[#A79D93] group-hover:text-[#2A2520]" />
                     </div>
-                    <ArrowLeft className="w-4 h-4 rotate-180 text-[#A79D93] group-hover:text-[#2A2520]" />
-                  </div>
+                  )}
+
+                  {!localStorage.getItem('redirect_after_login') && (
+                    <div className="w-full px-6 py-4 bg-muted rounded-2xl border border-border flex items-center justify-between cursor-pointer hover:bg-[#EAE4D7] transition-colors group" onClick={() => navigate('/collection')}>
+                      <div className="flex items-center gap-3">
+                        <ShoppingCart className="text-[#BDA183] w-5 h-5" />
+                        <span className="text-xs font-semibold text-[#2A2520]">Browse Catalog First</span>
+                      </div>
+                      <ArrowLeft className="w-4 h-4 rotate-180 text-[#A79D93] group-hover:text-[#2A2520]" />
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -253,12 +274,12 @@ const LoginPage = () => {
           {/* ADD OTHER VIEWS FOR SIGNUP/FORGOT ...  */}
           {view === 'forgot' && (
             <motion.div key="forgot" variants={variants} initial="enter" animate="center" exit="exit" className="bg-white/95 backdrop-blur-3xl p-8 sm:p-10 rounded-[2.5rem] shadow-2xl shadow-black/40 border border-white/20 text-center">
-              <div className="w-16 h-16 bg-[#F5F2EC] rounded-full mx-auto flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-muted rounded-full mx-auto flex items-center justify-center mb-6">
                 <ShieldCheck className="w-8 h-8 text-[#BDA183]" />
               </div>
               <h2 className="text-2xl font-semibold text-[#2A2520] mb-2">Reset Password</h2>
               <form onSubmit={handleSubmit} className="space-y-4 mt-6">
-                <Input type="email" placeholder="Email Address" className="h-14 bg-[#F5F2EC] border-transparent focus:border-[#BDA183] rounded-2xl px-6 text-[#2A2520] text-center" required />
+                <Input type="email" placeholder="Email Address" className="h-14 bg-muted border-transparent focus:border-[#BDA183] rounded-2xl px-6 text-[#2A2520] text-center" required />
                 <Button disabled={isLoading} type="submit" className="w-full h-14 bg-[#2A2520] hover:bg-[#1A1714] text-white rounded-2xl font-medium shadow-lg shadow-[#2A2520]/20">Send Reset Link</Button>
                 <button type="button" onClick={() => setView('login')} className="text-xs font-semibold text-[#6D655E] hover:text-[#2A2520] tracking-widest">Back to Login</button>
               </form>
