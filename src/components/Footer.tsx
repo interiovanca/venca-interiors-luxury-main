@@ -4,11 +4,11 @@ import { Instagram, Facebook, Linkedin, Twitter, MessageCircle } from "lucide-re
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/ankmiishra", label: "Instagram" },
-    { icon: Facebook, href: "https://www.facebook.com/", label: "Facebook" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/ankit-mishra-3766b6232", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com/", label: "Twitter" },
-    { icon: MessageCircle, href: "https://wa.me/918882480459", label: "WhatsApp" },
+    { icon: Instagram, href: "/assets/images/ui/placeholder.webp", label: "Instagram" },
+    { icon: Facebook, href: "/assets/images/ui/placeholder.webp", label: "Facebook" },
+    { icon: Linkedin, href: "/assets/images/ui/placeholder.webp", label: "LinkedIn" },
+    { icon: Twitter, href: "/assets/images/ui/placeholder.webp", label: "Twitter" },
+    { icon: MessageCircle, href: "/assets/images/ui/placeholder.webp", label: "WhatsApp" },
   ];
 
   const footerLinks = [

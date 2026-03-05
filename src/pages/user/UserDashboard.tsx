@@ -22,8 +22,8 @@ export const UserDashboard = () => {
   ];
 
   const recentOrders = [
-    { id: '#ORD-2024-89V', product: 'Luxury Velvet Sofa', price: '₹85,000', date: '21 Oct 2024', status: 'Shipped', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&w=200&q=80' },
-    { id: '#ORD-2024-42L', product: 'Nordic Oak Dining Table', price: '₹42,000', date: '10 Oct 2024', status: 'Delivered', img: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?ixlib=rb-4.0.3&w=200&q=80' }
+    { id: '#ORD-2024-89V', product: 'Luxury Velvet Sofa', price: '₹85,000', date: '21 Oct 2024', status: 'Shipped', img: '/assets/images/backgrounds/backgrounds-54.webp' },
+    { id: '#ORD-2024-42L', product: 'Nordic Oak Dining Table', price: '₹42,000', date: '10 Oct 2024', status: 'Delivered', img: '/assets/images/backgrounds/backgrounds-55.webp' }
   ];
 
   return (
@@ -31,7 +31,7 @@ export const UserDashboard = () => {
 
       {/* Dynamic Header */}
       <div className="bg-[#2A2520] pt-24 pb-16 px-6 lg:px-20 text-white rounded-b-[3rem] relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&w=1000&q=80')] bg-cover mix-blend-overlay" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/assets/images/backgrounds/backgrounds-56.webp')] bg-cover mix-blend-overlay" />
 
         <Link to="/collection" className="absolute top-8 left-6 lg:left-20 z-30 flex items-center gap-2 text-white/50 hover:text-white transition-all group font-medium">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -68,8 +68,8 @@ export const UserDashboard = () => {
             >
               <div className="p-3 bg-muted rounded-2xl">{stat.icon}</div>
               <div>
-                <p className="text-xs font-bold text-[#A79D93] uppercase tracking-wider">{stat.label}</p>
-                <h3 className="text-2xl font-display font-bold text-[#2A2520]">{stat.value}</h3>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{stat.label}</p>
+                <h3 className="text-2xl font-display font-bold text-foreground">{stat.value}</h3>
               </div>
             </motion.div>
           ))}
@@ -80,8 +80,8 @@ export const UserDashboard = () => {
 
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-display font-bold text-[#2A2520]">Recent Orders</h2>
-              <button onClick={() => navigate('/user/orders')} className="text-sm font-semibold text-[#BDA183] hover:text-[#2A2520] transition-colors flex items-center">
+              <h2 className="text-2xl font-display font-bold text-foreground">Recent Orders</h2>
+              <button onClick={() => navigate('/user/orders')} className="text-sm font-semibold text-[#BDA183] hover:text-foreground transition-colors flex items-center">
                 View All <ChevronRight className="w-4 h-4 ml-1" />
               </button>
             </div>
@@ -98,18 +98,18 @@ export const UserDashboard = () => {
                   <div className="flex-1 w-full">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <span className="text-xs font-bold text-[#A79D93] bg-muted px-3 py-1 rounded-full">{order.id}</span>
-                        <h3 className="text-lg font-bold text-[#2A2520] mt-2">{order.product}</h3>
+                        <span className="text-xs font-bold text-muted-foreground bg-muted px-3 py-1 rounded-full">{order.id}</span>
+                        <h3 className="text-lg font-bold text-foreground mt-2">{order.product}</h3>
                       </div>
-                      <span className="font-display font-bold text-lg text-[#2A2520]">{order.price}</span>
+                      <span className="font-display font-bold text-lg text-foreground">{order.price}</span>
                     </div>
                     <div className="flex items-center gap-4 mt-4 py-3 border-t border-border">
                       <div className="flex-1">
-                        <p className="text-[10px] text-[#A79D93] uppercase font-bold tracking-widest">Ordered On</p>
-                        <p className="text-sm font-semibold text-[#6D655E]">{order.date}</p>
+                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Ordered On</p>
+                        <p className="text-sm font-semibold text-foreground/70">{order.date}</p>
                       </div>
                       <div className="flex-1">
-                        <p className="text-[10px] text-[#A79D93] uppercase font-bold tracking-widest">Status</p>
+                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Status</p>
                         <p className={`text-sm font-semibold flex items-center gap-1.5 ${order.status === 'Delivered' ? 'text-emerald-600' : 'text-blue-600'}`}>
                           {order.status === 'Delivered' ? <CheckCircle className="w-4 h-4" /> : <RefreshCw className="w-4 h-4" />}
                           {order.status}
@@ -119,7 +119,7 @@ export const UserDashboard = () => {
                   </div>
 
                   <div className="w-full sm:w-auto flex sm:flex-col gap-2 shrink-0">
-                    <Button className="w-full bg-[#2A2520] hover:bg-[#1A1714] text-white rounded-xl h-11 shadow-md" onClick={() => navigate(`/user/orders/${order.id.replace('#', '')}`)}>
+                    <Button className="w-full bg-foreground hover:bg-foreground/90 text-background rounded-xl h-11 shadow-md" onClick={() => navigate(`/user/orders/${order.id.replace('#', '')}`)}>
                       Track Order
                     </Button>
                     <Button variant="outline" className="w-full border-[#BDA183] text-[#BDA183] hover:bg-[#BDA183] hover:text-white rounded-xl h-11" onClick={() => navigate(`/product/mock`)}>
@@ -133,7 +133,7 @@ export const UserDashboard = () => {
 
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-display font-bold text-[#2A2520]">Quick Links</h2>
+              <h2 className="text-2xl font-display font-bold text-foreground">Quick Links</h2>
             </div>
             <div className="bg-card p-6 rounded-[2rem] shadow-md border border-border space-y-2">
               <QuickLink title="My Wishlist" desc="View your saved items" icon={<Heart />} onClick={() => navigate('/user/wishlist')} />
@@ -151,12 +151,12 @@ export const UserDashboard = () => {
 const QuickLink = ({ title, desc, icon, onClick }: any) => (
   <div onClick={onClick} className="flex items-center justify-between p-4 rounded-2xl hover:bg-muted cursor-pointer transition-colors group">
     <div className="flex items-center gap-4">
-      <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center text-[#BDA183] group-hover:bg-white transition-colors shadow-sm">{icon}</div>
+      <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center text-[#BDA183] group-hover:bg-background transition-colors shadow-sm">{icon}</div>
       <div>
-        <h4 className="font-bold text-[#2A2520]">{title}</h4>
-        <p className="text-xs text-[#6D655E] mt-0.5">{desc}</p>
+        <h4 className="font-bold text-foreground">{title}</h4>
+        <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
       </div>
     </div>
-    <ChevronRight className="w-5 h-5 text-[#A79D93] group-hover:text-[#2A2520] transition-colors" />
+    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
   </div>
 );

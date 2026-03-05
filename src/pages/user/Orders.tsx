@@ -9,17 +9,17 @@ export const Orders = () => {
   const navigate = useNavigate();
 
   const allOrders = [
-    { id: '#ORD-2024-89V', product: 'Luxury Velvet Sofa', price: '₹85,000', date: '21 Oct 2024', status: 'Shipped', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&w=300&q=80', items: 1 },
-    { id: '#ORD-2024-42L', product: 'Nordic Oak Dining Table', price: '₹42,000', date: '10 Oct 2024', status: 'Delivered', img: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?ixlib=rb-4.0.3&w=300&q=80', items: 1 },
-    { id: '#ORD-2024-11A', product: 'Minimalist Floor Lamp', price: '₹12,400', date: '2 Sept 2024', status: 'Delivered', img: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?ixlib=rb-4.0.3&w=300&q=80', items: 2 },
-    { id: '#ORD-2024-05Z', product: 'Art Deco Mirror', price: '₹28,000', date: '15 Aug 2024', status: 'Processing', img: 'https://images.unsplash.com/photo-1622372738982-bdfebbceecee?ixlib=rb-4.0.3&w=300&q=80', items: 1 }
+    { id: '#ORD-2024-89V', product: 'Luxury Velvet Sofa', price: '₹85,000', date: '21 Oct 2024', status: 'Shipped', img: '/assets/images/collections/collections-50.webp', items: 1 },
+    { id: '#ORD-2024-42L', product: 'Nordic Oak Dining Table', price: '₹42,000', date: '10 Oct 2024', status: 'Delivered', img: '/assets/images/collections/collections-51.webp', items: 1 },
+    { id: '#ORD-2024-11A', product: 'Minimalist Floor Lamp', price: '₹12,400', date: '2 Sept 2024', status: 'Delivered', img: '/assets/images/collections/collections-52.webp', items: 2 },
+    { id: '#ORD-2024-05Z', product: 'Art Deco Mirror', price: '₹28,000', date: '15 Aug 2024', status: 'Processing', img: '/assets/images/ui/placeholder.webp', items: 1 }
   ];
 
   return (
     <div className="min-h-screen bg-background font-sans pb-20">
 
       <div className="bg-[#2A2520] pt-12 pb-24 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-5 blur-xl mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('/assets/images/ui/ui-21.webp')] opacity-5 blur-xl mix-blend-overlay" />
         <div className="relative z-10 max-w-6xl mx-auto">
           <button onClick={() => navigate('/user/dashboard')} className="flex items-center gap-2 text-amber-500/70 hover:text-amber-500 transition-colors mb-6 text-xs uppercase font-bold tracking-[0.2em]">
             <ArrowLeft className="w-4 h-4" /> Return to Dashboard

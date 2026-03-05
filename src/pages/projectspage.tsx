@@ -15,9 +15,9 @@ const projects = [
     materials: ['Italian Marble', 'Solid Oak', 'Brushed Brass'],
     description: 'A contemporary living space that harmonizes clean lines with warm textures, creating an atmosphere of understated luxury.',
     images: [
-      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200',
-      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200',
+      '/assets/images/banners/banners-23.webp',
+      '/assets/images/banners/banners-24.webp',
+      '/assets/images/banners/banners-25.webp',
     ],
   },
   {
@@ -29,9 +29,9 @@ const projects = [
     materials: ['Walnut Veneer', 'Velvet', 'Gold Accents'],
     description: 'An opulent bedroom retreat featuring custom millwork and sumptuous textiles for ultimate comfort.',
     images: [
-      'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200',
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200',
+      '/assets/images/banners/banners-26.webp',
+      '/assets/images/banners/banners-27.webp',
+      '/assets/images/banners/banners-28.webp',
     ],
   },
   {
@@ -43,9 +43,9 @@ const projects = [
     materials: ['Quartz Countertops', 'Matte Black Steel', 'White Oak'],
     description: 'A professional-grade kitchen designed for culinary excellence without compromising on aesthetic appeal.',
     images: [
-      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200',
-      'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200',
-      'https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=1200',
+      '/assets/images/banners/banners-29.webp',
+      '/assets/images/banners/banners-30.webp',
+      '/assets/images/banners/banners-31.webp',
     ],
   },
   {
@@ -57,9 +57,9 @@ const projects = [
     materials: ['Leather', 'Smoked Glass', 'Polished Chrome'],
     description: 'A prestigious office space that commands authority while maintaining comfort for long working hours.',
     images: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200',
-      'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1200',
-      'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1200',
+      '/assets/images/banners/banners-32.webp',
+      '/assets/images/banners/banners-33.webp',
+      '/assets/images/banners/banners-34.webp',
     ],
   },
   {
@@ -71,9 +71,9 @@ const projects = [
     materials: ['Mahogany', 'Crystal', 'Silk Drapes'],
     description: 'An elegant dining room crafted for memorable gatherings and sophisticated entertaining.',
     images: [
-      'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1200',
-      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1200',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200',
+      '/assets/images/banners/banners-35.webp',
+      '/assets/images/banners/banners-36.webp',
+      '/assets/images/banners/banners-37.webp',
     ],
   },
   {
@@ -85,9 +85,9 @@ const projects = [
     materials: ['Lacquered Panels', 'LED Lighting', 'Soft-close Hardware'],
     description: 'A meticulously organized wardrobe system that transforms dressing into a luxury experience.',
     images: [
-      'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=1200',
-      'https://images.unsplash.com/photo-1594125311687-3b1b3eefa9f2?w=1200',
-      'https://images.unsplash.com/photo-1595428773960-2aa93dc8f5fc?w=1200',
+      '/assets/images/banners/banners-38.webp',
+      '/assets/images/ui/placeholder.webp',
+      '/assets/images/ui/placeholder.webp',
     ],
   },
   {
@@ -99,9 +99,9 @@ const projects = [
     materials: ['Reclaimed Teak', 'Hand-forged Iron', 'Natural Linen'],
     description: 'Handcrafted furniture pieces that tell a story of traditional craftsmanship meeting modern design.',
     images: [
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200',
-      'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1200',
-      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1200',
+      '/assets/images/banners/banners-41.webp',
+      '/assets/images/banners/banners-42.webp',
+      '/assets/images/banners/banners-43.webp',
     ],
   },
   {
@@ -113,9 +113,9 @@ const projects = [
     materials: ['Bamboo', 'Organic Cotton', 'Stone'],
     description: 'A tranquil sanctuary inspired by coastal living, designed for ultimate relaxation.',
     images: [
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200',
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200',
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200',
+      '/assets/images/banners/banners-44.webp',
+      '/assets/images/banners/banners-45.webp',
+      '/assets/images/banners/banners-27.webp',
     ],
   },
 ];
@@ -173,7 +173,7 @@ const ProjectsPage = () => {
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920"
+            src="/assets/images/banners/banners-46.webp"
             alt="Luxury Interior"
             className="w-full h-full object-cover"
           />

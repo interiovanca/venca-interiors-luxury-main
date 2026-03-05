@@ -24,7 +24,7 @@ export default function SearchBar() {
   const [inventory, setInventory] = useState<Product[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const fallbackImage = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80";
+  const fallbackImage = "/assets/images/products/products-13.webp";
 
   // Load Inventory & Recents
   useEffect(() => {

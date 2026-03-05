@@ -3,38 +3,7 @@ import { useState, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const projects = [
-  {
-    id: 1,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80',
-    title: 'Modern Living Space',
-    location: 'Dubai, UAE',
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
-    title: 'Minimalist Villa',
-    location: 'Tokyo, Japan',
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80',
-    title: 'Luxury Penthouse',
-    location: 'New York, USA',
-  },
-  {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
-    title: 'Contemporary Home',
-    location: 'London, UK',
-  },
-  {
-    id: 5,
-    image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80',
-    title: 'Coastal Retreat',
-    location: 'Sydney, Australia',
-  },
-];
+import { projectsShowcaseData as projects } from '@/data/siteContent';
 
 const ProjectsShowcase = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

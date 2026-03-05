@@ -8,7 +8,7 @@ import { useCart } from '../context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80';
+const FALLBACK_IMAGE = '/assets/images/collections/collections-14.webp';
 
 export default function ProductDetailPage() {
   const { id } = useParams();

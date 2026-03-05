@@ -6,15 +6,15 @@ export const ProtectedRoute = ({ children, requireAdmin = false }: { children: R
   const { isAuthenticated, user } = useAuth();
   const location = useLocation();
 
-  // If we're strictly enforcing backend AuthContext mapping:
-  if (!isAuthenticated && !localStorage.getItem("isAdminAuth")) {
+  // Ensure user is authentically logged in
+  if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // If you later add role-based checking:
-  // if (requireAdmin && user?.role !== 'admin') {
-  //   return <Navigate to="/" replace />;
-  // }
+  // Strictly enforce role-based access control (RBAC)
+  if (requireAdmin && user?.role !== 'admin') {
+    return <Navigate to="/user/dashboard" replace />;
+  }
 
   return <>{children}</>;
 };

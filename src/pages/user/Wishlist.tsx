@@ -8,9 +8,9 @@ export const Wishlist = () => {
   const navigate = useNavigate();
 
   const [items, setItems] = React.useState([
-    { id: 1, name: 'Minimalist Oak Chair', price: '₹12,000', stock: true, img: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&w=300&q=80' },
-    { id: 2, name: 'Velvet Lounge Sofa', price: '₹95,000', stock: false, img: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&w=300&q=80' },
-    { id: 3, name: 'Marble Coffee Table', price: '₹34,000', stock: true, img: 'https://images.unsplash.com/photo-1532372576444-ea2ba3b4c107?ixlib=rb-4.0.3&w=300&q=80' }
+    { id: 1, name: 'Minimalist Oak Chair', price: '₹12,000', stock: true, img: '/assets/images/collections/collections-57.webp' },
+    { id: 2, name: 'Velvet Lounge Sofa', price: '₹95,000', stock: false, img: '/assets/images/collections/collections-58.webp' },
+    { id: 3, name: 'Marble Coffee Table', price: '₹34,000', stock: true, img: '/assets/images/ui/placeholder.webp' }
   ]);
 
   const removeItem = (id: number) => setItems(items.filter(item => item.id !== id));
@@ -19,7 +19,7 @@ export const Wishlist = () => {
     <div className="min-h-screen bg-background font-sans pb-20">
 
       <div className="bg-[#2A2520] pt-12 pb-16 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-10 blur-sm mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('/assets/images/ui/ui-21.webp')] opacity-10 blur-sm mix-blend-overlay" />
         <div className="relative z-10 max-w-7xl mx-auto">
           <button onClick={() => navigate('/user/dashboard')} className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6 text-xs uppercase font-bold tracking-[0.2em]">
             <ArrowLeft className="w-4 h-4" /> Go Back

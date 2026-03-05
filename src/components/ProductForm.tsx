@@ -57,7 +57,7 @@ const ProductForm = ({ onProductAdded }: { onProductAdded?: () => void }) => {
       // 2. Mock image URLs to avoid LocalStorage limits 
       // In production, you would upload files to an S3/Cloudinary and get URLs back
       const mockImageUrls = images.map((_, i) =>
-        `https://images.unsplash.com/photo-1540574163026-643ea20d25b5?ixlib=rb-4.0.3&w=500&q=80&auto=format&fit=crop`
+        `/assets/images/ui/placeholder.webp`
       );
 
       const newProduct: Product = {

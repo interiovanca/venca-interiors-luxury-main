@@ -50,17 +50,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(defaultUser);
     localStorage.setItem('vanca_user', JSON.stringify(defaultUser));
 
-    // Legacy support for specific checks
-    if (data.role === 'admin') {
-      localStorage.setItem('isAdminAuth', 'true');
-    }
+    // Ensure sensitive flags aren't stored in plain localStorage flags
+    // (A real JWT HttpOnly cookie is best, but here we secure the state)
+
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('vanca_user');
+    // Clean up any historical spoofable flags
     localStorage.removeItem('isAdminAuth');
-    toast.info("Logged out successfully");
+    toast.info("Logged out securely");
   };
 
   return (

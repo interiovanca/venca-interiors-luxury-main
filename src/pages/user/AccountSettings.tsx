@@ -33,7 +33,7 @@ export const AccountSettings = () => {
 
       {/* Header */}
       <div className="bg-[#2A2520] pt-12 pb-24 px-6 lg:px-20 text-white rounded-b-[3rem] relative shadow-xl overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-5 blur-xl mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('/assets/images/ui/ui-21.webp')] opacity-5 blur-xl mix-blend-overlay" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <button onClick={() => navigate('/user/dashboard')} className="flex items-center gap-2 text-amber-500/70 hover:text-amber-500 transition-colors mb-6 text-xs uppercase font-bold tracking-[0.2em]">
             <ArrowLeft className="w-4 h-4" /> Go Back

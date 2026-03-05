@@ -95,7 +95,7 @@ const ServicesPage = () => {
       <section className="relative h-[60vh] md:h-[75vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920"
+            src="/assets/images/banners/banners-48.webp"
             alt="Luxury Furniture"
             className="w-full h-full object-cover"
           />
@@ -182,7 +182,7 @@ const ServicesPage = () => {
               className="relative aspect-[4/3] rounded-lg overflow-hidden"
             >
               <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200"
+                src="/assets/images/banners/banners-49.webp"
                 alt="Custom Furniture"
                 className="w-full h-full object-cover"
               />

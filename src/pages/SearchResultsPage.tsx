@@ -29,7 +29,7 @@ export default function SearchResultsPage() {
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  const fallbackImage = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80";
+  const fallbackImage = "/assets/images/products/products-47.webp";
 
   useEffect(() => {
     window.scrollTo(0, 0);

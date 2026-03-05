@@ -69,7 +69,7 @@ const NewsletterPopup = () => {
             {/* Top/Left - Image */}
             <div className="w-full md:w-1/2 relative h-40 sm:h-48 md:h-auto flex-shrink-0">
               <img
-                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80"
+                src="/assets/images/banners/banners-6.webp"
                 alt="Luxury Interior"
                 className="w-full h-full object-cover"
                 loading="eager"

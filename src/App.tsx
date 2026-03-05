@@ -50,9 +50,8 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   const { isAuthenticated, isAdmin } = useAuth();
 
-  // Determine if we should treat user as admin legacy authenticated
-  const isLegacyAdmin = isAuthenticated && isAdmin;
-  const hasAdminAuth = isLegacyAdmin || localStorage.getItem("isAdminAuth") === "true";
+  // Determine if we should treat user as admin based on signed token state securely
+  const isSecureAdmin = isAuthenticated && isAdmin;
 
   return (
     <AnimatePresence mode="wait">
@@ -74,12 +73,12 @@ const AnimatedRoutes = () => {
             key={path}
             path={path}
             element={
-              !isAuthenticated && !hasAdminAuth ? (
+              !isAuthenticated ? (
                 <PageTransition>
                   <LoginPage />
                 </PageTransition>
               ) : (
-                <Navigate to={hasAdminAuth ? "/admin" : "/user/dashboard"} replace />
+                <Navigate to={isSecureAdmin ? "/admin" : "/user/dashboard"} replace />
               )
             }
           />
@@ -95,13 +94,11 @@ const AnimatedRoutes = () => {
         <Route
           path="/admin/*"
           element={
-            hasAdminAuth ? (
+            <ProtectedRoute requireAdmin={true}>
               <PageTransition>
                 <AdminDashboard setAuth={() => { }} />
               </PageTransition>
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            </ProtectedRoute>
           }
         />
 

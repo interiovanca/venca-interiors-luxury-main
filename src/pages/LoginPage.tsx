@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth, UserRole } from '../context/AuthContext';
 
-const BG_IMAGE = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80";
+const BG_IMAGE = "/assets/images/ui/ui-21.webp";
 
 type AuthView = 'login' | 'signup' | 'forgot' | 'otp' | 'preferences';
 type RoleMode = 'user' | 'admin';
@@ -182,7 +182,7 @@ const LoginPage = () => {
                     <Input
                       value={email} onChange={(e) => setEmail(e.target.value)}
                       placeholder={isAdmin ? "admin@vanca.com" : "Enter email or phone"}
-                      className={`pl-11 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white placeholder:text-gray-600 focus:border-amber-500/50' : 'bg-muted border-transparent text-[#2A2520] placeholder:text-[#A79D93] focus:border-[#BDA183]'}`}
+                      className={`pl-11 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white placeholder:text-gray-600 focus:border-amber-500/50' : 'bg-black/5 border-transparent text-[#2A2520] placeholder:text-[#A79D93] focus:border-[#BDA183]'}`}
                       required
                     />
                   </div>
@@ -195,7 +195,7 @@ const LoginPage = () => {
                     <Input
                       type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className={`pl-11 pr-12 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white focus:border-amber-500/50' : 'bg-muted border-transparent text-[#2A2520] focus:border-[#BDA183]'}`}
+                      className={`pl-11 pr-12 h-14 rounded-2xl transition-colors ${isAdmin ? 'bg-white/5 border-amber-500/10 text-white focus:border-amber-500/50' : 'bg-black/5 border-transparent text-[#2A2520] focus:border-[#BDA183]'}`}
                       required
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
@@ -207,7 +207,7 @@ const LoginPage = () => {
                 {!isAdmin && (
                   <div className="flex items-center justify-between px-1">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <input type="checkbox" className="w-4 h-4 rounded border-[#BDA183] text-[#BDA183] bg-muted" />
+                      <input type="checkbox" className="w-4 h-4 rounded border-[#BDA183] text-[#BDA183] bg-black/5" />
                       <span className="text-xs text-[#6D655E] group-hover:text-[#2A2520]">Remember me</span>
                     </label>
                     <button type="button" onClick={() => setView('forgot')} className="text-xs font-medium text-[#BDA183] hover:text-[#8C745A]">
@@ -229,8 +229,21 @@ const LoginPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
-                  <button className={`h-12 flex items-center justify-center gap-3 rounded-xl border transition-colors ${isAdmin ? 'border-white/10 bg-white/5 hover:bg-white/10 text-white' : 'border-border bg-muted/50 hover:bg-[#EAE4D7] text-[#2A2520]'}`}>
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toast.success("Google login successful!");
+                      login({
+                        email: 'user@gmail.com',
+                        name: 'Google User',
+                        role: 'user'
+                      });
+                      navigate('/user/dashboard');
+                    }}
+                    className={`h-12 flex items-center justify-center gap-3 rounded-xl border transition-colors ${isAdmin ? 'border-white/10 bg-white/5 hover:bg-white/10 text-white' : 'border-border bg-black/5 hover:bg-black/10 text-[#2A2520]'}`}
+                  >
+                    <img src="/assets/images/ui/ui-22.webp" alt="Google" className="w-5 h-5" />
                     <span className="text-xs font-bold">Sign in with Google</span>
                   </button>
                 </div>
