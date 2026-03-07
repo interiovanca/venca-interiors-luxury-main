@@ -306,12 +306,12 @@ const ContactPage = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors duration-300 rounded-sm disabled:opacity-60"
+                    className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-champagne text-black font-body text-xs uppercase tracking-[0.2em] hover:bg-cream transition-colors duration-500 rounded-none disabled:opacity-60"
                   >
                     {isSubmitting ? (
                       <>
                         Sending...
-                        <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                       </>
                     ) : (
                       <>
@@ -383,7 +383,7 @@ const ContactPage = () => {
             </p>
             <button
               onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors duration-300 rounded-sm"
+              className="inline-flex items-center gap-4 px-10 py-5 bg-champagne text-black font-body text-xs uppercase tracking-[0.2em] hover:bg-cream transition-colors duration-500 rounded-none w-max"
             >
               Book Consultation
               <ArrowRight className="w-4 h-4" />

@@ -34,7 +34,7 @@ const CheckoutPage = () => {
           <div className="text-center py-20 bg-card rounded-3xl border border-black/5 dark:border-white/5">
             <h2 className="text-2xl font-display mb-4">Your cart is empty.</h2>
             <p className="text-black/60 dark:text-white/60 mb-8 font-body">Browse our luxury collections and add your favorite pieces.</p>
-            <Link to="/collection" className="px-8 py-4 bg-amber-600 dark:bg-amber-500 text-black uppercase tracking-widest text-sm rounded-full font-medium hover:scale-105 transition-transform">
+            <Link to="/collection" className="inline-flex px-8 py-4 bg-champagne text-black uppercase tracking-[0.2em] font-body text-xs hover:bg-cream transition-colors duration-500 rounded-none w-max">
               Explore Collections
             </Link>
           </div>
@@ -107,7 +107,7 @@ const CheckoutPage = () => {
 
                 <button
                   onClick={handleProceedToCheckout}
-                  className="w-full flex items-center justify-center gap-2 bg-black dark:bg-cream text-white dark:text-black py-4 rounded-full uppercase tracking-[0.15em] text-xs font-medium hover:bg-amber-600 hover:text-white dark:hover:bg-amber-500 transition-colors shadow-xl"
+                  className="w-full flex items-center justify-center gap-4 px-8 py-4 bg-champagne text-black uppercase tracking-[0.2em] font-body text-xs hover:bg-cream transition-colors duration-500 rounded-none shadow-xl"
                 >
                   <ShieldCheck size={16} />
                   Proceed to Checkout <ArrowRight size={16} />

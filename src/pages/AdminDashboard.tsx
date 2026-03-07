@@ -4,6 +4,7 @@ import { BusinessOverview } from "../components/admin/BusinessOverview";
 import ProductForm from "../components/ProductForm";
 import CollectionManager from "../components/CollectionManager";
 import InventoryList from "../components/InventoryList";
+import ProjectManager from "../components/ProjectManager";
 import { PackageSearch, FolderTree, ShoppingBag } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
@@ -140,6 +141,26 @@ const AdminDashboard = ({ setAuth }: { setAuth: (status: boolean) => void }) => 
               <InventoryList />
             </div>
 
+          </div>
+        )}
+
+        {activeTab === "projects_mng" && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center">
+                <FolderTree className="text-amber-500" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-display font-bold text-white">
+                  Project Management
+                </h1>
+                <p className="text-gray-400 text-sm">
+                  Manage your portfolio projects
+                </p>
+              </div>
+            </div>
+            
+            <ProjectManager />
           </div>
         )}
 

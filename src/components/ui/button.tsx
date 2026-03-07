@@ -5,23 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-4 whitespace-nowrap text-xs uppercase font-body tracking-[0.2em] transition-all duration-500 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "rounded-md bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "rounded-md bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "rounded-md hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        luxury: "border border-champagne bg-transparent text-champagne hover:bg-champagne hover:text-charcoal-deep tracking-[0.15em] uppercase font-body transition-all duration-500",
+        default: "bg-champagne text-black hover:bg-cream",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-champagne text-champagne hover:bg-champagne hover:text-black",
+        secondary: "bg-charcoal text-cream hover:bg-charcoal-light",
+        ghost: "hover:bg-charcoal-light/20 hover:text-champagne",
+        link: "text-champagne underline-offset-4 hover:underline pb-1 border-b border-transparent hover:border-champagne",
+        luxury: "border border-champagne bg-transparent text-champagne hover:bg-champagne hover:text-black",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-12 px-10 py-3",
-        icon: "h-10 w-10",
+        default: "px-8 py-4",
+        sm: "px-6 py-3 text-[10px]",
+        lg: "px-10 py-5",
+        icon: "h-12 w-12",
       },
     },
     defaultVariants: {

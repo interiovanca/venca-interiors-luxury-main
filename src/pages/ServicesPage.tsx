@@ -225,7 +225,7 @@ const ServicesPage = () => {
                 ))}
               </ul>
 
-              <button className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm tracking-wider hover:bg-primary/90 transition-colors rounded-sm">
+              <button className="inline-flex items-center gap-4 px-8 py-4 bg-champagne text-black font-body text-xs uppercase tracking-[0.2em] hover:bg-cream transition-colors duration-500 rounded-none w-max">
                 Explore Our Craft
                 <ArrowRight className="w-4 h-4" />
               </button>

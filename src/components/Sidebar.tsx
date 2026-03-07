@@ -13,6 +13,7 @@ const Sidebar = ({ activeTab, setActiveTab, isOpen, onLogout }: SidebarProps) =>
   const menuItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
     { id: 'products', label: 'Products', icon: ShoppingBag },
+    { id: 'projects_mng', label: 'Projects', icon: Layers },
     { id: 'inventory', label: 'Inventory', icon: Layers },
     { id: 'collections', label: 'Collections', icon: Layers },
     { id: 'orders', label: 'Orders', icon: ShoppingCart },
