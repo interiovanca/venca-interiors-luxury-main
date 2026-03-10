@@ -160,8 +160,8 @@ const ProjectsPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const filteredProjects = activeCategory === 'All' 
-    ? projects 
+  const filteredProjects = activeCategory === 'All'
+    ? projects
     : projects.filter(p => p.category === activeCategory);
 
   const openProjectDetail = (project: any) => {
@@ -201,7 +201,7 @@ const ProjectsPage = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
         </div>
-        
+
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -215,7 +215,7 @@ const ProjectsPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl text-cream font-light tracking-wide mb-8"
+            className="font-display text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-wide mb-8 drop-shadow-lg"
           >
             Our Projects
           </motion.h1>
@@ -229,7 +229,7 @@ const ProjectsPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-cream/80 font-body text-base md:text-lg max-w-xl font-light tracking-wider"
+            className="text-white/90 font-body text-base md:text-lg max-w-xl font-light tracking-wider drop-shadow-md"
           >
             Crafted spaces that define timeless luxury living.
           </motion.p>
@@ -244,11 +244,10 @@ const ProjectsPage = () => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`text-xs md:text-sm uppercase font-body tracking-[0.2em] transition-all duration-300 pb-2 border-b-2 ${
-                  activeCategory === category
-                    ? 'border-champagne text-champagne'
-                    : 'border-transparent text-cream/50 hover:text-cream'
-                }`}
+                className={`text-xs md:text-sm uppercase font-body tracking-[0.2em] transition-all duration-300 pb-2 border-b-2 ${activeCategory === category
+                  ? 'border-champagne text-champagne'
+                  : 'border-transparent text-foreground/50 hover:text-foreground'
+                  }`}
               >
                 {category}
               </button>
@@ -311,72 +310,72 @@ const ProjectsPage = () => {
 
       {/* Featured Project Section */}
       {featuredProject && (
-      <section className="py-24 md:py-32 bg-[#0a0a0a] border-y border-charcoal-light/20 relative">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-[4/3] w-full"
-            >
-              <img
-                src={featuredProject.images[0]}
-                alt={featuredProject.title}
-                className="w-full h-full object-cover shadow-2xl"
-              />
-              <div className="absolute -inset-4 border border-champagne/20 -z-10 translate-y-8 translate-x-8" />
-            </motion.div>
+        <section className="py-24 md:py-32 bg-[#0a0a0a] border-y border-charcoal-light/20 relative">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+              {/* Image */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative aspect-[4/3] w-full"
+              >
+                <img
+                  src={featuredProject.images[0]}
+                  alt={featuredProject.title}
+                  className="w-full h-full object-cover shadow-2xl"
+                />
+                <div className="absolute -inset-4 border border-champagne/20 -z-10 translate-y-8 translate-x-8" />
+              </motion.div>
 
-            {/* Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div className="space-y-4">
-                <p className="text-champagne tracking-[0.4em] text-xs font-body uppercase">
-                  Featured Masterpiece
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="space-y-8"
+              >
+                <div className="space-y-4">
+                  <p className="text-champagne tracking-[0.4em] text-xs font-body uppercase">
+                    Featured Masterpiece
+                  </p>
+                  <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white tracking-wide">
+                    {featuredProject.title}
+                  </h2>
+                </div>
+
+                <div className="w-16 h-[1px] bg-champagne/40" />
+
+                <p className="text-white/70 font-body leading-loose text-sm md:text-base">
+                  {featuredProject.description}
                 </p>
-                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-cream tracking-wide">
-                  {featuredProject.title}
-                </h2>
-              </div>
-              
-              <div className="w-16 h-[1px] bg-champagne/40" />
-              
-              <p className="text-cream/60 font-body leading-loose text-sm md:text-base">
-                {featuredProject.description}
-              </p>
 
-              <div className="flex flex-wrap gap-6 text-sm text-cream/50 font-body tracking-wider">
-                <span className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-champagne" />
-                  {featuredProject.location}
-                </span>
-                <span className="flex items-center gap-3">
-                  <Calendar className="w-4 h-4 text-champagne" />
-                  {featuredProject.year}
-                </span>
-              </div>
-              
-              <div className="pt-4">
-                <button
-                  onClick={() => openProjectDetail(featuredProject)}
-                  className="inline-flex items-center gap-4 px-8 py-4 border border-champagne text-champagne hover:bg-champagne hover:text-black font-body text-xs tracking-[0.2em] uppercase transition-all duration-300"
-                >
-                  Explore Details
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </motion.div>
+                <div className="flex flex-wrap gap-6 text-sm text-white/50 font-body tracking-wider">
+                  <span className="flex items-center gap-3">
+                    <MapPin className="w-4 h-4 text-champagne" />
+                    {featuredProject.location}
+                  </span>
+                  <span className="flex items-center gap-3">
+                    <Calendar className="w-4 h-4 text-champagne" />
+                    {featuredProject.year}
+                  </span>
+                </div>
+
+                <div className="pt-4">
+                  <button
+                    onClick={() => openProjectDetail(featuredProject)}
+                    className="inline-flex items-center gap-4 px-8 py-4 border border-champagne text-champagne hover:bg-champagne hover:text-black font-body text-xs tracking-[0.2em] uppercase transition-all duration-300"
+                  >
+                    Explore Details
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* CTA Section */}
@@ -440,7 +439,7 @@ const ProjectsPage = () => {
                       className="w-full h-full object-cover"
                     />
                   </AnimatePresence>
-                  
+
                   {/* Navigation Arrows */}
                   <button
                     onClick={prevImage}
@@ -461,9 +460,8 @@ const ProjectsPage = () => {
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-12 h-[2px] transition-all duration-300 ${
-                          index === currentImageIndex ? 'bg-champagne' : 'bg-white/20 hover:bg-white/40'
-                        }`}
+                        className={`w-12 h-[2px] transition-all duration-300 ${index === currentImageIndex ? 'bg-champagne' : 'bg-white/20 hover:bg-white/40'
+                          }`}
                       />
                     ))}
                   </div>
@@ -485,7 +483,7 @@ const ProjectsPage = () => {
                       {selectedProject.description}
                     </p>
                   </div>
-                  
+
                   <div className="md:col-span-5 space-y-10 pt-4 md:border-l border-charcoal-light/30 pl-0 md:pl-10">
                     <div className="space-y-6">
                       <div>
@@ -510,7 +508,7 @@ const ProjectsPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <button className="mt-8 w-full flex items-center justify-center gap-4 py-5 border border-champagne text-champagne hover:bg-champagne hover:text-black font-body text-xs tracking-[0.2em] uppercase transition-all duration-300">
                       Request Similar Design
                       <ArrowRight className="w-4 h-4" />

@@ -100,7 +100,7 @@ const CollectionsPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl text-cream font-light tracking-wide mb-8"
+            className="font-display text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-wide mb-8 drop-shadow-lg"
           >
             Collections
           </motion.h1>
@@ -114,7 +114,7 @@ const CollectionsPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-cream/80 font-body text-base md:text-lg max-w-xl font-light tracking-wider"
+            className="text-white/90 font-body text-base md:text-lg max-w-xl font-light tracking-wider drop-shadow-md"
           >
             Luxury furniture & décor crafted with absolute perfection.
           </motion.p>
@@ -131,7 +131,7 @@ const CollectionsPage = () => {
                 onClick={() => setActiveFilter(category)}
                 className={`text-xs md:text-sm uppercase font-body tracking-[0.2em] transition-all duration-300 pb-2 border-b-2 ${activeFilter === category
                     ? 'border-champagne text-champagne'
-                    : 'border-transparent text-cream/50 hover:text-cream'
+                    : 'border-transparent text-foreground/50 hover:text-foreground'
                   }`}
               >
                 {category}
